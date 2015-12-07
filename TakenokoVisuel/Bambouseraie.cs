@@ -376,10 +376,14 @@ namespace TakenokoVisuel
             {
                 if (p.nbreBambou == 4)
                     MessageBox.Show("Ce bambou est complètement poussé.");
-                if(p.etang == true)
+                else if(p.etang == true)
                     MessageBox.Show("Les bambous ne poussent pas sur l'étang.");
-                if(p.afficher == false)
+                else if(p.afficher == false)
                     MessageBox.Show("Il n'y a pas de parcelle ici.");
+                else if (p.irriguee == false)
+                {
+                    MessageBox.Show("Il faut que la parcelle soit irriguée pour que le bambou pousse."); 
+                }
                 else
                 {
                     p.afficher = false;
@@ -402,8 +406,10 @@ namespace TakenokoVisuel
                     MessageBox.Show("Les parcelles adjacentes ne sont pas irriguées."); 
                 else
                 {
+                    baseDessin.DrawString(p.nbreBambou.ToString(), police, new SolidBrush(p.remplissage.Color), p.dimension, formatTexte);
                     p.texte.Color = Color.Blue;
                     p.irriguee = true;
+                    p.nbreBambou++; 
                     baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
                     changementJoueur();
                 }

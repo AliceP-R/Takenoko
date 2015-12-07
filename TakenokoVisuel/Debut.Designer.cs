@@ -42,7 +42,7 @@
             this.NomJoueur2 = new System.Windows.Forms.TextBox();
             this.NomJoueur1 = new System.Windows.Forms.TextBox();
             this.DebutPartie = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.quitter = new System.Windows.Forms.Button();
             this.groupeBoxNbreJoueur.SuspendLayout();
             this.groupeBoxNomJoueur.SuspendLayout();
             this.SuspendLayout();
@@ -148,6 +148,7 @@
             this.NomJoueur4.Name = "NomJoueur4";
             this.NomJoueur4.Size = new System.Drawing.Size(100, 20);
             this.NomJoueur4.TabIndex = 3;
+            this.NomJoueur4.Leave += new System.EventHandler(this.NomJoueur4_Leave);
             // 
             // NomJoueur3
             // 
@@ -155,6 +156,7 @@
             this.NomJoueur3.Name = "NomJoueur3";
             this.NomJoueur3.Size = new System.Drawing.Size(100, 20);
             this.NomJoueur3.TabIndex = 2;
+            this.NomJoueur3.Leave += new System.EventHandler(this.NomJoueur3_Leave);
             // 
             // NomJoueur2
             // 
@@ -162,6 +164,7 @@
             this.NomJoueur2.Name = "NomJoueur2";
             this.NomJoueur2.Size = new System.Drawing.Size(100, 20);
             this.NomJoueur2.TabIndex = 1;
+            this.NomJoueur2.Leave += new System.EventHandler(this.NomJoueur2_Leave);
             // 
             // NomJoueur1
             // 
@@ -169,6 +172,7 @@
             this.NomJoueur1.Name = "NomJoueur1";
             this.NomJoueur1.Size = new System.Drawing.Size(100, 20);
             this.NomJoueur1.TabIndex = 0;
+            this.NomJoueur1.Leave += new System.EventHandler(this.NomJoueur1_Leave);
             // 
             // DebutPartie
             // 
@@ -180,22 +184,22 @@
             this.DebutPartie.UseVisualStyleBackColor = true;
             this.DebutPartie.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button1
+            // quitter
             // 
-            this.button1.Location = new System.Drawing.Point(197, 227);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(53, 22);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Quitter";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.quitter.Location = new System.Drawing.Point(197, 227);
+            this.quitter.Name = "quitter";
+            this.quitter.Size = new System.Drawing.Size(53, 22);
+            this.quitter.TabIndex = 9;
+            this.quitter.Text = "Quitter";
+            this.quitter.UseVisualStyleBackColor = true;
+            this.quitter.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // Debut
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(284, 262);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.quitter);
             this.Controls.Add(this.DebutPartie);
             this.Controls.Add(this.groupeBoxNomJoueur);
             this.Controls.Add(this.groupeBoxNbreJoueur);
@@ -224,6 +228,6 @@
         private System.Windows.Forms.Label labelNomJoueur2;
         private System.Windows.Forms.Label labelNomJoueur1;
         private System.Windows.Forms.Button DebutPartie;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button quitter;
     }
 }

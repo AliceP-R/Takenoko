@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,7 +39,7 @@ namespace TakenokoVisuel
         public Graphics baseDessin;
         private Color choixCouleur; 
 
-        public Bambouseraie(string[] joueur, int nbrej)
+        public Bambouseraie(ArrayList joueurs, int nbrej)
         {
 
             #region Initialisation du tableau contenant les parcelles
@@ -73,24 +74,18 @@ namespace TakenokoVisuel
             #region Intialisation de la pioche
             int maxPioche = nbrej * 6 + 10;
             piocheP = new List<Carte>();
+            Random rand = new Random();
             for (int i = 0; i < maxPioche; i++)
             { 
-                int tmp = i % 4;
-                if (tmp != 0)
-                    pioche.Add(new Carte(tmp));
+                pioche.Add(new Carte(rand.Next(1,4)));
             }
+            Console.WriteLine(pioche.ToString()); 
             #endregion 
 
 
             #region Initialisation du tableau des joueurs
             nbrejoueur = nbrej;
-            listeJoueur = new Joueur[nbrej];
-            for (int i = 0; i < nbrej; i++)
-            {
-                listeJoueur[i] = new Joueur(joueur[i]);
-                listeJoueur[i].piocher(piocheP); 
-            }
-
+            listeJoueur = (Joueur[])joueurs.ToArray(typeof(Joueur)); 
             jEnCours = 0;
             #endregion 
 
@@ -113,12 +108,6 @@ namespace TakenokoVisuel
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
                 p.afficher = true;
             }
-            else if(p.etang != true)
-            {
-                baseDessin.DrawRectangle(p.contour, p.dimension);
-                baseDessin.FillRectangle(p.remplissage, p.dimension);
-            }
-            
         }
 
         private void trouver_parcelle(MouseEventArgs souris, Color couleur)
@@ -227,13 +216,13 @@ namespace TakenokoVisuel
             }
         }
 
-        private void button1_Click_1(object sender, EventArgs e)
+        private void ColorGreen_Click(object sender, EventArgs e)
         {
             choixCouleur = Color.Green;
             choixCouleurParcelle.Hide(); 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void ColorPink_Click(object sender, EventArgs e)
         {
             choixCouleur = Color.Pink;
             choixCouleurParcelle.Hide(); 

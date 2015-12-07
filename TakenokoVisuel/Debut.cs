@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,20 +13,22 @@ namespace TakenokoVisuel
 {
     public partial class Debut : Form
     {
-        private int nbreJoueur = 0; 
+        private int nbreJoueur = 0;
+        private ArrayList joueurs; 
         public Debut()
         {
             InitializeComponent();
             groupeBoxNomJoueur.Hide();
-            DebutPartie.Hide(); 
+            DebutPartie.Hide();
+            joueurs = new ArrayList(); 
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             nbreJoueur = 2; 
             groupeBoxNomJoueur.Show();
-            NomJoueur3.Hide();
             labelNomJoueur3.Hide();
+            NomJoueur3.Hide();
             labelNomJoueur4.Hide(); 
             NomJoueur4.Hide();
             DebutPartie.Show(); 
@@ -55,27 +58,13 @@ namespace TakenokoVisuel
 
         private void button1_Click(object sender, EventArgs e)
         {
-            string[] joueur = new string[nbreJoueur];
-
-            
-            joueur[0] = NomJoueur1.Text;
-            joueur[1] = NomJoueur2.Text;
-
-            if (nbreJoueur == 3)
-                joueur[2] = NomJoueur3.Text;
-            if (nbreJoueur == 4)
-                joueur[3] = NomJoueur4.Text; 
-
-            foreach(string nom in joueur)
+            if (joueurs.Count != nbreJoueur || joueurs.Contains(""))
             {
-                if (nom == "")
-                {
-                    MessageBox.Show("Vous avez oublié un nom.");
-                    return;
-                }
+                MessageBox.Show("Vous avez oublié un nom.");
+                return;
             }
             
-            Bambouseraie b = new Bambouseraie(joueur, nbreJoueur);
+            Bambouseraie b = new Bambouseraie(joueurs, nbreJoueur);
             b.Show();
             this.Hide(); 
         }
@@ -83,6 +72,42 @@ namespace TakenokoVisuel
         private void button1_Click_1(object sender, EventArgs e)
         {
             System.Environment.Exit(0); 
+        }
+
+        private void NomJoueur1_Leave(object sender, EventArgs e)
+        {
+            string nom = NomJoueur1.Text;
+            if (joueurs.Contains(nom))
+                MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else
+                joueurs.Add(new Joueur(nom)); 
+        }
+
+        private void NomJoueur2_Leave(object sender, EventArgs e)
+        {
+            string nom = NomJoueur2.Text;
+            if (joueurs.Contains(nom))
+                MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else
+                joueurs.Add(new Joueur(nom)); 
+        }
+
+        private void NomJoueur3_Leave(object sender, EventArgs e)
+        {
+            string nom = NomJoueur3.Text;
+            if (joueurs.Contains(nom))
+                MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else
+                joueurs.Add(new Joueur(nom)); 
+        }
+
+        private void NomJoueur4_Leave(object sender, EventArgs e)
+        {
+            string nom = NomJoueur4.Text;
+            if (joueurs.Contains(nom))
+                MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else
+                joueurs.Add(new Joueur(nom)); 
         }
     }
 }

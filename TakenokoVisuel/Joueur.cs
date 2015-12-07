@@ -27,6 +27,7 @@ namespace TakenokoVisuel
         {
             nom = n; 
         }
+
         public void piocher(List<Carte> pioche)
         {
                 Random rand = new Random();

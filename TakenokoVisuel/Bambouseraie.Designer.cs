@@ -230,7 +230,7 @@
             this.ColorPink.TabIndex = 2;
             this.ColorPink.Text = "Rose";
             this.ColorPink.UseVisualStyleBackColor = false;
-            this.ColorPink.Click += new System.EventHandler(this.button3_Click);
+            this.ColorPink.Click += new System.EventHandler(this.ColorPink_Click);
             // 
             // ColorYellow
             // 
@@ -252,7 +252,7 @@
             this.ColorGreen.TabIndex = 0;
             this.ColorGreen.Text = "Vert";
             this.ColorGreen.UseVisualStyleBackColor = false;
-            this.ColorGreen.Click += new System.EventHandler(this.button1_Click_1);
+            this.ColorGreen.Click += new System.EventHandler(this.ColorGreen_Click);
             // 
             // Bambouseraie
             // 

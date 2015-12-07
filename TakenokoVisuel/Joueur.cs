@@ -28,13 +28,16 @@ namespace TakenokoVisuel
             nom = n; 
         }
 
-        public void piocher(List<Carte> pioche)
+        public Carte piocher(List<Carte> pioche)
         {
+                Carte c; 
                 Random rand = new Random();
                 int nbre = rand.Next(0, pioche.Count);
-                mainP.Add(pioche[nbre]);
-                MessageBox.Show("Vous avez pioché " + pioche[nbre].ToString()); 
+                c = pioche[nbre]; 
+                mainP.Add(c);
                 pioche.RemoveAt(nbre);
+                return c; 
+
         }
 
         /*

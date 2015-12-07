@@ -89,15 +89,15 @@ namespace TakenokoVisuel
             {
                 case 1:
                     typePrive = Type.Jardiner;
-                    objectifPrive = "Planter " + nbre + " x " + nbre + "bambous "+couleur; 
+                    objectifPrive = "Planter " + nbre + " x " + nbre + " bambous "+couleur; 
                     break; 
                 case 2:
                     typePrive = Type.Manger;
-                    objectifPrive = "Manger " + nbre + "bambous "+couleur; 
+                    objectifPrive = "Manger " + nbre + " bambous "+couleur; 
                     break;
                 case 3:
                     typePrive = Type.Poser;
-                    objectifPrive = "Poser " + nbre + "parcelle "+couleur; 
+                    objectifPrive = "Poser " + nbre + " parcelle "+couleur; 
                     break;
                 default:
                     typePrive = Type.Indefini;

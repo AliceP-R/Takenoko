@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.groupBoxAction = new System.Windows.Forms.GroupBox();
+            this.irriguer = new System.Windows.Forms.Button();
             this.deplacerPanda = new System.Windows.Forms.Button();
             this.deplacerJardinier = new System.Windows.Forms.Button();
             this.arroser = new System.Windows.Forms.Button();
@@ -47,7 +48,6 @@
             this.ColorYellow = new System.Windows.Forms.Button();
             this.ColorGreen = new System.Windows.Forms.Button();
             this.lancement = new System.Windows.Forms.Button();
-            this.irriguer = new System.Windows.Forms.Button();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
@@ -68,6 +68,17 @@
             this.groupBoxAction.TabIndex = 1;
             this.groupBoxAction.TabStop = false;
             this.groupBoxAction.Text = "Action";
+            this.groupBoxAction.Visible = false;
+            // 
+            // irriguer
+            // 
+            this.irriguer.Location = new System.Drawing.Point(87, 59);
+            this.irriguer.Name = "irriguer";
+            this.irriguer.Size = new System.Drawing.Size(75, 34);
+            this.irriguer.TabIndex = 5;
+            this.irriguer.Text = "Irriguer";
+            this.irriguer.UseVisualStyleBackColor = true;
+            this.irriguer.Click += new System.EventHandler(this.irriguer_Click);
             // 
             // deplacerPanda
             // 
@@ -130,6 +141,7 @@
             this.groupBoxObjectif.TabIndex = 3;
             this.groupBoxObjectif.TabStop = false;
             this.groupBoxObjectif.Text = "Objectifs";
+            this.groupBoxObjectif.Visible = false;
             // 
             // Obj5
             // 
@@ -245,23 +257,13 @@
             // lancement
             // 
             this.lancement.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lancement.Location = new System.Drawing.Point(349, 63);
+            this.lancement.Location = new System.Drawing.Point(349, 94);
             this.lancement.Name = "lancement";
             this.lancement.Size = new System.Drawing.Size(173, 82);
             this.lancement.TabIndex = 7;
             this.lancement.Text = "Lancer la partie !";
             this.lancement.UseVisualStyleBackColor = true;
             this.lancement.Click += new System.EventHandler(this.lancement_Click);
-            // 
-            // irriguer
-            // 
-            this.irriguer.Location = new System.Drawing.Point(87, 59);
-            this.irriguer.Name = "irriguer";
-            this.irriguer.Size = new System.Drawing.Size(75, 34);
-            this.irriguer.TabIndex = 5;
-            this.irriguer.Text = "Irriguer";
-            this.irriguer.UseVisualStyleBackColor = true;
-            this.irriguer.Click += new System.EventHandler(this.irriguer_Click);
             // 
             // Bambouseraie
             // 

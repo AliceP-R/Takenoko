@@ -27,7 +27,7 @@ namespace TakenokoVisuel
     public partial class Bambouseraie : Form
     {
 
-        private Parcelle[,] tableauParcelle = new Parcelle[10,10];
+        private Parcelle[,] tableauParcelle = new Parcelle[9,9];
         private int tailleParcelle = 49; 
 
         public int nbrejoueur;
@@ -100,11 +100,6 @@ namespace TakenokoVisuel
             #region Initialisation du tableau des joueurs
             nbrejoueur = nbrej;
             listeJoueur = (Joueur[])joueurs.ToArray(typeof(Joueur));
-            foreach (Joueur j in listeJoueur)
-            {
-                j.piocher(pioche); 
-            }
-            jEnCours = 0;
             #endregion 
 
             baseDessin = zoneJardin.CreateGraphics();
@@ -189,7 +184,8 @@ namespace TakenokoVisuel
             {
                 if (listeJoueur[jEnCours].main.Count < 5)
                 {
-                    listeJoueur[jEnCours].piocher(piocheP);
+                    Carte c = listeJoueur[jEnCours].piocher(piocheP);
+                    MessageBox.Show("Vous avez pioché " + c.ToString()); 
                     changementJoueur(); 
                 }
                 else
@@ -252,7 +248,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente basse
             Parcelle bas;
-            if (lignep == 9)
+            if (lignep == 8)
                 bas = tableauParcelle[lignep, colonnep];
             else
                 bas = tableauParcelle[lignep + 1, colonnep];
@@ -268,7 +264,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente droite
             Parcelle droite;
-            if (colonnep == 9)
+            if (colonnep == 8)
                 droite = tableauParcelle[lignep, colonnep];
             else
                 droite = tableauParcelle[lignep, colonnep + 1];
@@ -406,11 +402,11 @@ namespace TakenokoVisuel
                     MessageBox.Show("Les parcelles adjacentes ne sont pas irriguées."); 
                 else
                 {
-                    baseDessin.DrawString(p.nbreBambou.ToString(), police, new SolidBrush(p.remplissage.Color), p.dimension, formatTexte);
                     p.texte.Color = Color.Blue;
                     p.irriguee = true;
-                    p.nbreBambou++; 
-                    baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
+                    p.nbreBambou++;
+                    p.afficher = false;
+                    tracer_parcelle(p); 
                     changementJoueur();
                 }
             }
@@ -443,12 +439,19 @@ namespace TakenokoVisuel
         private void lancement_Click(object sender, EventArgs e)
         {
             lancement.Hide(); 
+            
+            foreach (Joueur j in listeJoueur)
+            {
+                j.piocher(pioche);
+            }
+            jEnCours = 0;
+            groupBoxAction.Show();
+            groupBoxObjectif.Show();            
             #region Etang
             baseDessin.DrawRectangle(contour, tableauParcelle[4, 4].dimension);
             baseDessin.FillRectangle(tableauParcelle[4, 4].remplissage, tableauParcelle[4, 4].dimension);
             tableauParcelle[4, 4].afficher = true;
             #endregion
-
             Obj1.Text = listeJoueur[jEnCours].main[0].objectif;
             Obj1.Show();
         }

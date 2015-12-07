@@ -73,5 +73,10 @@ namespace TakenokoVisuel
                     break;
             }
         }
+
+        public override string ToString() 
+        {
+            return "Objectif : " + objectifPrive; 
+        }
     }
 }

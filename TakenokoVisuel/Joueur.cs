@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TakenokoVisuel
 {
@@ -31,6 +32,7 @@ namespace TakenokoVisuel
                 Random rand = new Random();
                 int nbre = rand.Next(0, pioche.Count);
                 mainP.Add(pioche[nbre]);
+                MessageBox.Show("Vous avez pioché " + pioche[nbre].ToString()); 
                 pioche.RemoveAt(nbre);
         }
 

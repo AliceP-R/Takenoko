@@ -53,6 +53,10 @@ namespace TakenokoVisuel
             etang = false; 
         }
 
+        public void choixCouleur(Color couleur)
+        {
+            this.remplissage.Color = couleur; 
+        }
         // si le curseur (x,y) est dans le parcelle, renvoie true
         public bool curseur_dedans(int x, int y, int taille)
         {

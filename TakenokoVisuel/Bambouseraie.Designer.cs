@@ -44,9 +44,14 @@
             this.quitter = new System.Windows.Forms.Button();
             this.zoneJardin = new System.Windows.Forms.PictureBox();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
+            this.choixCouleurParcelle = new System.Windows.Forms.GroupBox();
+            this.ColorPink = new System.Windows.Forms.Button();
+            this.ColorYellow = new System.Windows.Forms.Button();
+            this.ColorGreen = new System.Windows.Forms.Button();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
+            this.choixCouleurParcelle.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxAction
@@ -203,11 +208,58 @@
             this.colorDialog1.AllowFullOpen = false;
             this.colorDialog1.SolidColorOnly = true;
             // 
+            // choixCouleurParcelle
+            // 
+            this.choixCouleurParcelle.Controls.Add(this.ColorPink);
+            this.choixCouleurParcelle.Controls.Add(this.ColorYellow);
+            this.choixCouleurParcelle.Controls.Add(this.ColorGreen);
+            this.choixCouleurParcelle.Location = new System.Drawing.Point(281, 111);
+            this.choixCouleurParcelle.Name = "choixCouleurParcelle";
+            this.choixCouleurParcelle.Size = new System.Drawing.Size(300, 65);
+            this.choixCouleurParcelle.TabIndex = 6;
+            this.choixCouleurParcelle.TabStop = false;
+            this.choixCouleurParcelle.Text = "Couleur de la parcelle ?";
+            this.choixCouleurParcelle.Visible = false;
+            // 
+            // ColorPink
+            // 
+            this.ColorPink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.ColorPink.Location = new System.Drawing.Point(210, 31);
+            this.ColorPink.Name = "ColorPink";
+            this.ColorPink.Size = new System.Drawing.Size(75, 23);
+            this.ColorPink.TabIndex = 2;
+            this.ColorPink.Text = "Rose";
+            this.ColorPink.UseVisualStyleBackColor = false;
+            this.ColorPink.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // ColorYellow
+            // 
+            this.ColorYellow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ColorYellow.Location = new System.Drawing.Point(109, 31);
+            this.ColorYellow.Name = "ColorYellow";
+            this.ColorYellow.Size = new System.Drawing.Size(75, 23);
+            this.ColorYellow.TabIndex = 1;
+            this.ColorYellow.Text = "Jaune";
+            this.ColorYellow.UseVisualStyleBackColor = false;
+            this.ColorYellow.Click += new System.EventHandler(this.ColorYellow_Click);
+            // 
+            // ColorGreen
+            // 
+            this.ColorGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ColorGreen.Location = new System.Drawing.Point(16, 31);
+            this.ColorGreen.Name = "ColorGreen";
+            this.ColorGreen.Size = new System.Drawing.Size(75, 23);
+            this.ColorGreen.TabIndex = 0;
+            this.ColorGreen.Text = "Vert";
+            this.ColorGreen.UseVisualStyleBackColor = false;
+            this.ColorGreen.Click += new System.EventHandler(this.button1_Click_1);
+            // 
             // Bambouseraie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 526);
+            this.Controls.Add(this.choixCouleurParcelle);
             this.Controls.Add(this.zoneJardin);
             this.Controls.Add(this.quitter);
             this.Controls.Add(this.groupBoxObjectif);
@@ -219,6 +271,7 @@
             this.groupBoxObjectif.ResumeLayout(false);
             this.groupBoxObjectif.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).EndInit();
+            this.choixCouleurParcelle.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -241,5 +294,9 @@
         private System.Windows.Forms.Label Obj2;
         private System.Windows.Forms.PictureBox zoneJardin;
         private System.Windows.Forms.ColorDialog colorDialog1;
+        private System.Windows.Forms.GroupBox choixCouleurParcelle;
+        private System.Windows.Forms.Button ColorPink;
+        private System.Windows.Forms.Button ColorYellow;
+        private System.Windows.Forms.Button ColorGreen;
     }
 }

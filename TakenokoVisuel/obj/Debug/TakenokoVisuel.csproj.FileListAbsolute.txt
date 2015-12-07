@@ -20,3 +20,14 @@ C:\Users\alice\Documents\Visual Studio 2015\Projects\TakenokoVisuel\TakenokoVisu
 C:\Users\alice\Documents\Visual Studio 2015\Projects\TakenokoVisuel\TakenokoVisuel\obj\Debug\TakenokoVisuel.Bambouseraie.resources
 C:\Users\alice\Documents\Visual Studio 2015\Projects\TakenokoVisuel\TakenokoVisuel\obj\Debug\TakenokoVisuel.Properties.Resources.resources
 C:\Users\alice\Documents\Visual Studio 2015\Projects\TakenokoVisuel\TakenokoVisuel\obj\Debug\TakenokoVisuel.csproj.GenerateResource.Cache
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\bin\Debug\TakenokoVisuel.exe.config
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.exe
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.pdb
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\bin\Debug\TakenokoVisuel.exe
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\bin\Debug\TakenokoVisuel.pdb
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.csprojResolveAssemblyReference.cache
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.Accueil.resources
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.Debut.resources
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.Bambouseraie.resources
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.Properties.Resources.resources
+C:\Users\Alice\Documents\Visual Studio 2013\Projects\Takenoko\TakenokoVisuel\obj\Debug\TakenokoVisuel.csproj.GenerateResource.Cache

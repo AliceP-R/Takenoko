@@ -36,11 +36,12 @@ namespace TakenokoVisuel
         private bool placer_parcelle = false; 
 
         public Graphics baseDessin;
+        private Color choixCouleur; 
 
         public Bambouseraie(string[] joueur, int nbrej)
         {
 
-            // Initialisation du tableau contenant les parcelles
+            #region Initialisation du tableau contenant les parcelles
             int xParcelle = 0;
             int yParcelle = 0;
             int ligne = 0;
@@ -56,17 +57,20 @@ namespace TakenokoVisuel
                 ligne = 0;
                 colonne++;
             }
+            #endregion 
 
-            
+
             InitializeComponent();
 
+            #region Initialisation affichage objectif
             Obj1.Hide();
             Obj2.Hide();
             Obj3.Hide();
             Obj4.Hide();
             Obj5.Hide();
+            #endregion
 
-            // Intialisation de la pioche
+            #region Intialisation de la pioche
             int maxPioche = nbrej * 6 + 10;
             piocheP = new List<Carte>();
             for (int i = 0; i < maxPioche; i++)
@@ -75,8 +79,10 @@ namespace TakenokoVisuel
                 if (tmp != 0)
                     pioche.Add(new Carte(tmp));
             }
+            #endregion 
 
-            // Initialisation du tableau des joueurs 
+
+            #region Initialisation du tableau des joueurs
             nbrejoueur = nbrej;
             listeJoueur = new Joueur[nbrej];
             for (int i = 0; i < nbrej; i++)
@@ -86,31 +92,25 @@ namespace TakenokoVisuel
             }
 
             jEnCours = 0;
+            #endregion 
 
             baseDessin = zoneJardin.CreateGraphics();
-            //Définition de la couleur de l'étang
-            tableauParcelle[4, 4].etang = true;
-            // tracer_parcelle(tableauParcelle[4, 4], Color.AliceBlue);
-            // zoneJardin.Hide();
-            // zoneJardin.Show();
 
-            Pen contour = new Pen(Color.Black);
-            SolidBrush remplissage = new SolidBrush(Color.AliceBlue);
-            baseDessin.DrawRectangle(contour, tableauParcelle[4, 4].dimension);
-            baseDessin.FillRectangle(remplissage, tableauParcelle[4, 4].dimension);
-            //zoneJardin.Hide();
-            //zoneJardin.Show();
-            this.Refresh(); 
+            #region Définition de l'étang 
+            tableauParcelle[4, 4].etang = true;
+            tableauParcelle[4, 4].choixCouleur(Color.AliceBlue); 
+            this.tracer_parcelle(tableauParcelle[4, 4]); 
+            this.Refresh();
+            #endregion
 
         }
 
-        private void tracer_parcelle(Parcelle p, Color couleur)
+        private void tracer_parcelle(Parcelle p)
         {
             if (p.afficher == false && p.etang != true)
             {
-                SolidBrush remplissage = new SolidBrush(couleur);
                 baseDessin.DrawRectangle(p.contour, p.dimension);
-                baseDessin.FillRectangle(remplissage, p.dimension);
+                baseDessin.FillRectangle(p.remplissage, p.dimension);
                 p.afficher = true;
             }
             else if(p.etang != true)
@@ -130,7 +130,9 @@ namespace TakenokoVisuel
                 {
                     if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
                     {
-                        tracer_parcelle(tableauParcelle[ligne, colonne], couleur); 
+                        Parcelle p = tableauParcelle[ligne, colonne];
+                        p.choixCouleur(couleur); 
+                        tracer_parcelle(p); 
                     }
                 }
             }
@@ -204,7 +206,7 @@ namespace TakenokoVisuel
         private void piocheParcelle_Click(object sender, EventArgs e)
         {
             placer_parcelle = true;
-            colorDialog1.ShowDialog(); 
+            choixCouleurParcelle.Show(); 
         }
 
         private void zoneJardin_Click(object sender, MouseEventArgs e)
@@ -212,18 +214,35 @@ namespace TakenokoVisuel
 
             int xsouris = e.X;
             int ysouris = e.Y; 
-            MessageBox.Show("clic dans zoneJardin");
-            tracer_parcelle(tableauParcelle[4, 4], Color.AliceBlue);
 
             if (placer_parcelle == true)
             {
-                trouver_parcelle(e, colorDialog1.Color);
+                trouver_parcelle(e, choixCouleur);
+                placer_parcelle = false; 
                 if (jEnCours != listeJoueur.Count() - 1)
                     jEnCours++;
                 else
                     jEnCours = 0;
                 Tour();
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            choixCouleur = Color.Green;
+            choixCouleurParcelle.Hide(); 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            choixCouleur = Color.Pink;
+            choixCouleurParcelle.Hide(); 
+        }
+
+        private void ColorYellow_Click(object sender, EventArgs e)
+        {
+            choixCouleur = Color.Yellow;
+            choixCouleurParcelle.Hide(); 
         }
     }
 }

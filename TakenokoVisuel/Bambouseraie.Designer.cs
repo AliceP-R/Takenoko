@@ -46,6 +46,7 @@
             this.ColorPink = new System.Windows.Forms.Button();
             this.ColorYellow = new System.Windows.Forms.Button();
             this.ColorGreen = new System.Windows.Forms.Button();
+            this.lancement = new System.Windows.Forms.Button();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
@@ -219,7 +220,7 @@
             // 
             // ColorYellow
             // 
-            this.ColorYellow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.ColorYellow.BackColor = System.Drawing.Color.Yellow;
             this.ColorYellow.Location = new System.Drawing.Point(52, 63);
             this.ColorYellow.Name = "ColorYellow";
             this.ColorYellow.Size = new System.Drawing.Size(75, 23);
@@ -239,11 +240,23 @@
             this.ColorGreen.UseVisualStyleBackColor = false;
             this.ColorGreen.Click += new System.EventHandler(this.ColorGreen_Click);
             // 
+            // lancement
+            // 
+            this.lancement.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lancement.Location = new System.Drawing.Point(349, 63);
+            this.lancement.Name = "lancement";
+            this.lancement.Size = new System.Drawing.Size(173, 82);
+            this.lancement.TabIndex = 7;
+            this.lancement.Text = "Lancer la partie !";
+            this.lancement.UseVisualStyleBackColor = true;
+            this.lancement.Click += new System.EventHandler(this.lancement_Click);
+            // 
             // Bambouseraie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(703, 526);
+            this.Controls.Add(this.lancement);
             this.Controls.Add(this.choixCouleurParcelle);
             this.Controls.Add(this.zoneJardin);
             this.Controls.Add(this.quitter);
@@ -280,5 +293,6 @@
         private System.Windows.Forms.Button ColorPink;
         private System.Windows.Forms.Button ColorYellow;
         private System.Windows.Forms.Button ColorGreen;
+        private System.Windows.Forms.Button lancement;
     }
 }

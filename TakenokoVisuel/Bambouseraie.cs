@@ -51,8 +51,8 @@ namespace TakenokoVisuel
         private Pen contour;
         SolidBrush texte;
         Font police;
-        StringFormat formatTexte; 
-        private Color choixCouleur; 
+        StringFormat formatTexte;
+        private Color choixCouleur;  
 
         public Bambouseraie(ArrayList joueurs, int nbrej)
         {
@@ -111,9 +111,7 @@ namespace TakenokoVisuel
 
             #region Définition de l'étang 
             tableauParcelle[4, 4].etang = true;
-            tableauParcelle[4, 4].choixCouleur(Color.AliceBlue); 
-            this.tracer_parcelle(tableauParcelle[4, 4]); 
-            this.Refresh();
+            tableauParcelle[4, 4].choixCouleur(Color.Blue); 
             #endregion
 
             #region Initialisation des pinceaux
@@ -192,11 +190,7 @@ namespace TakenokoVisuel
                 if (listeJoueur[jEnCours].main.Count < 5)
                 {
                     listeJoueur[jEnCours].piocher(piocheP);
-                    if (jEnCours != listeJoueur.Count()-1)
-                        jEnCours++;
-                    else
-                        jEnCours = 0;
-                    Tour();
+                    changementJoueur(); 
                 }
                 else
                     MessageBox.Show("Vous avez déjà 5 objectifs.\nChoississez une autre action.");
@@ -223,6 +217,7 @@ namespace TakenokoVisuel
                 p.afficher = true;
             }
         }
+
         private bool tracer_parcelle(Parcelle p, Color choix)
         {
             if (p.afficher == false && p.etang != true)
@@ -283,6 +278,7 @@ namespace TakenokoVisuel
                 lien = false; 
             return lien; 
         }
+
         private Parcelle trouver_parcelle(MouseEventArgs souris)
         {
             for (int ligne = 0; ligne < 9; ligne++)
@@ -292,13 +288,6 @@ namespace TakenokoVisuel
                     if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
                     {
                         Parcelle p = tableauParcelle[ligne, colonne];
-                        if(p.afficher == true)
-                        {
-                            MessageBox.Show("Il y a déjà une parcelle ici.");
-                            return null; 
-                        }
-                        if (!trouver_liaison(p))
-                            MessageBox.Show("Pas de lien entre cette parcelle et les autres."); 
                         return p;
                     }
                 }
@@ -318,27 +307,37 @@ namespace TakenokoVisuel
 
             int xsouris = e.X;
             int ysouris = e.Y;
-
+ 
             Parcelle p = trouver_parcelle(e); 
 
             if (act == Action.Parcelle)
             {
-                if(choixCouleur.IsEmpty)
+                if(choixCouleur.IsEmpty || choixCouleur == Color.White)
                     MessageBox.Show("Vous n'avez pas choisi la couleur de la parcelle.");
-                else if( p!= null)
+                else if (!trouver_liaison(p))
+                    MessageBox.Show("Pas de lien entre cette parcelle et les autres.");
+                else if (p.afficher == true)
                 {
-                    tracer_parcelle(p, choixCouleur); 
+                    MessageBox.Show("Il y a déjà une parcelle ici.");
+                }
+                else if (p != null)
+                {
+                    tracer_parcelle(p, choixCouleur);
+                    choixCouleur = Color.White; 
                     changementJoueur();
                 }
             }
             if (act == Action.Arroser)
             {
-                if (p.afficher == true)
-                    p.afficher = false;
                 if (p.nbreBambou == 4)
                     MessageBox.Show("Ce bambou est complètement poussé.");
+                if(p.etang == true)
+                    MessageBox.Show("Les bambous ne poussent pas sur l'étang.");
+                if(p.afficher == false)
+                    MessageBox.Show("Il n'y a pas de parcelle ici.");
                 else
                 {
+                    p.afficher = false;
                     p.nbreBambou++;
                     tracer_parcelle(p);
                     changementJoueur();
@@ -350,7 +349,7 @@ namespace TakenokoVisuel
 
         private void ColorGreen_Click(object sender, EventArgs e)
         {
-            choixCouleur = Color.Green;
+            choixCouleur = Color.ForestGreen;
             choixCouleurParcelle.Hide();
         }
 
@@ -368,6 +367,19 @@ namespace TakenokoVisuel
         }
 
         #endregion 
+
+        private void lancement_Click(object sender, EventArgs e)
+        {
+            lancement.Hide(); 
+            #region Etang
+            baseDessin.DrawRectangle(contour, tableauParcelle[4, 4].dimension);
+            baseDessin.FillRectangle(tableauParcelle[4, 4].remplissage, tableauParcelle[4, 4].dimension);
+            tableauParcelle[4, 4].afficher = true;
+            #endregion
+
+            Obj1.Text = listeJoueur[jEnCours].main[0].objectif;
+            Obj1.Show();
+        }
       
     }
 }

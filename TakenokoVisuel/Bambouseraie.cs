@@ -141,7 +141,7 @@ namespace TakenokoVisuel
             }
         }
 
-        private void tracer_parcelle(Parcelle p, Color choix)
+        private bool tracer_parcelle(Parcelle p, Color choix)
         {
             if (p.afficher == false && p.etang != true)
             {
@@ -153,7 +153,10 @@ namespace TakenokoVisuel
                 // nbre de bambou sur cette parcelle
                 baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
                 p.afficher = true;
+                return true; 
             }
+
+            return false; 
         }
 
         private Parcelle trouver_parcelle(MouseEventArgs souris)
@@ -270,8 +273,10 @@ namespace TakenokoVisuel
 
             if (act == Action.Parcelle)
             {
-                tracer_parcelle(p, choixCouleur);
-                changementJoueur(); 
+                if (!tracer_parcelle(p, choixCouleur))
+                    MessageBox.Show("Il y a déjà une parcelle ici."); 
+                else
+                    changementJoueur(); 
             }
             if (act == Action.Arroser)
             {

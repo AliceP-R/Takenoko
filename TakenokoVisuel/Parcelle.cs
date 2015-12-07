@@ -35,7 +35,6 @@ namespace TakenokoVisuel
             }
         }
 
-        public Pen contour;
         public SolidBrush remplissage; 
         public Rectangle dimension;
 
@@ -47,10 +46,10 @@ namespace TakenokoVisuel
             dimension.X = x;
             dimension.Y = y;
             dimension.Width = dimension.Height = t;
-            contour = new Pen(Color.Black);
             remplissage = new SolidBrush(Color.Yellow);
             afficher = false;
-            etang = false; 
+            etang = false;
+            nbreBambouP = 0; 
         }
 
         public void choixCouleur(Color couleur)

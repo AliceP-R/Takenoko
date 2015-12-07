@@ -34,7 +34,6 @@
             this.arroser = new System.Windows.Forms.Button();
             this.piocheCarte = new System.Windows.Forms.Button();
             this.piocheParcelle = new System.Windows.Forms.Button();
-            this.groupBoxInventaire = new System.Windows.Forms.GroupBox();
             this.groupBoxObjectif = new System.Windows.Forms.GroupBox();
             this.Obj5 = new System.Windows.Forms.Label();
             this.Obj4 = new System.Windows.Forms.Label();
@@ -43,7 +42,6 @@
             this.Obj2 = new System.Windows.Forms.Label();
             this.quitter = new System.Windows.Forms.Button();
             this.zoneJardin = new System.Windows.Forms.PictureBox();
-            this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.choixCouleurParcelle = new System.Windows.Forms.GroupBox();
             this.ColorPink = new System.Windows.Forms.Button();
             this.ColorYellow = new System.Windows.Forms.Button();
@@ -94,6 +92,7 @@
             this.arroser.TabIndex = 2;
             this.arroser.Text = "Arroser";
             this.arroser.UseVisualStyleBackColor = true;
+            this.arroser.Click += new System.EventHandler(this.arroser_Click);
             // 
             // piocheCarte
             // 
@@ -115,15 +114,6 @@
             this.piocheParcelle.UseVisualStyleBackColor = true;
             this.piocheParcelle.Click += new System.EventHandler(this.piocheParcelle_Click);
             // 
-            // groupBoxInventaire
-            // 
-            this.groupBoxInventaire.Location = new System.Drawing.Point(12, 171);
-            this.groupBoxInventaire.Name = "groupBoxInventaire";
-            this.groupBoxInventaire.Size = new System.Drawing.Size(171, 139);
-            this.groupBoxInventaire.TabIndex = 2;
-            this.groupBoxInventaire.TabStop = false;
-            this.groupBoxInventaire.Text = "Inventaire";
-            // 
             // groupBoxObjectif
             // 
             this.groupBoxObjectif.Controls.Add(this.Obj5);
@@ -131,9 +121,9 @@
             this.groupBoxObjectif.Controls.Add(this.Obj1);
             this.groupBoxObjectif.Controls.Add(this.Obj3);
             this.groupBoxObjectif.Controls.Add(this.Obj2);
-            this.groupBoxObjectif.Location = new System.Drawing.Point(12, 316);
+            this.groupBoxObjectif.Location = new System.Drawing.Point(12, 321);
             this.groupBoxObjectif.Name = "groupBoxObjectif";
-            this.groupBoxObjectif.Size = new System.Drawing.Size(171, 150);
+            this.groupBoxObjectif.Size = new System.Drawing.Size(171, 145);
             this.groupBoxObjectif.TabIndex = 3;
             this.groupBoxObjectif.TabStop = false;
             this.groupBoxObjectif.Text = "Objectifs";
@@ -203,19 +193,14 @@
             this.zoneJardin.TabStop = false;
             this.zoneJardin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.zoneJardin_Click);
             // 
-            // colorDialog1
-            // 
-            this.colorDialog1.AllowFullOpen = false;
-            this.colorDialog1.SolidColorOnly = true;
-            // 
             // choixCouleurParcelle
             // 
             this.choixCouleurParcelle.Controls.Add(this.ColorPink);
             this.choixCouleurParcelle.Controls.Add(this.ColorYellow);
             this.choixCouleurParcelle.Controls.Add(this.ColorGreen);
-            this.choixCouleurParcelle.Location = new System.Drawing.Point(281, 111);
+            this.choixCouleurParcelle.Location = new System.Drawing.Point(12, 171);
             this.choixCouleurParcelle.Name = "choixCouleurParcelle";
-            this.choixCouleurParcelle.Size = new System.Drawing.Size(300, 65);
+            this.choixCouleurParcelle.Size = new System.Drawing.Size(171, 144);
             this.choixCouleurParcelle.TabIndex = 6;
             this.choixCouleurParcelle.TabStop = false;
             this.choixCouleurParcelle.Text = "Couleur de la parcelle ?";
@@ -224,7 +209,7 @@
             // ColorPink
             // 
             this.ColorPink.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.ColorPink.Location = new System.Drawing.Point(210, 31);
+            this.ColorPink.Location = new System.Drawing.Point(52, 102);
             this.ColorPink.Name = "ColorPink";
             this.ColorPink.Size = new System.Drawing.Size(75, 23);
             this.ColorPink.TabIndex = 2;
@@ -235,7 +220,7 @@
             // ColorYellow
             // 
             this.ColorYellow.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.ColorYellow.Location = new System.Drawing.Point(109, 31);
+            this.ColorYellow.Location = new System.Drawing.Point(52, 63);
             this.ColorYellow.Name = "ColorYellow";
             this.ColorYellow.Size = new System.Drawing.Size(75, 23);
             this.ColorYellow.TabIndex = 1;
@@ -246,7 +231,7 @@
             // ColorGreen
             // 
             this.ColorGreen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.ColorGreen.Location = new System.Drawing.Point(16, 31);
+            this.ColorGreen.Location = new System.Drawing.Point(52, 19);
             this.ColorGreen.Name = "ColorGreen";
             this.ColorGreen.Size = new System.Drawing.Size(75, 23);
             this.ColorGreen.TabIndex = 0;
@@ -263,7 +248,6 @@
             this.Controls.Add(this.zoneJardin);
             this.Controls.Add(this.quitter);
             this.Controls.Add(this.groupBoxObjectif);
-            this.Controls.Add(this.groupBoxInventaire);
             this.Controls.Add(this.groupBoxAction);
             this.Name = "Bambouseraie";
             this.Text = "Bambouseraie";
@@ -279,7 +263,6 @@
         #endregion
 
         private System.Windows.Forms.GroupBox groupBoxAction;
-        private System.Windows.Forms.GroupBox groupBoxInventaire;
         private System.Windows.Forms.GroupBox groupBoxObjectif;
         private System.Windows.Forms.Button quitter;
         private System.Windows.Forms.Button deplacerPanda;
@@ -293,7 +276,6 @@
         private System.Windows.Forms.Label Obj3;
         private System.Windows.Forms.Label Obj2;
         private System.Windows.Forms.PictureBox zoneJardin;
-        private System.Windows.Forms.ColorDialog colorDialog1;
         private System.Windows.Forms.GroupBox choixCouleurParcelle;
         private System.Windows.Forms.Button ColorPink;
         private System.Windows.Forms.Button ColorYellow;

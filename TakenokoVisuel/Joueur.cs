@@ -37,6 +37,7 @@ namespace TakenokoVisuel
                 pioche.RemoveAt(nbre);
         }
 
+        /*
         public void afficher_main()
         {
             if (mainP.Count == 0)
@@ -51,6 +52,7 @@ namespace TakenokoVisuel
                 }
             }
         }
+         */
         
     }
 }

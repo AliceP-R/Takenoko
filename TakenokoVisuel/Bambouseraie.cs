@@ -13,13 +13,27 @@ using System.Windows.Input;
 
 namespace TakenokoVisuel
 {
+    enum Action
+    {
+        Indefinie,
+        Parcelle, 
+        Arroser, 
+        Piocher, 
+        BougerPanda, 
+        BougerJardinier
+    }
+
     public partial class Bambouseraie : Form
     {
 
         private Parcelle[,] tableauParcelle = new Parcelle[10,10];
         private int tailleParcelle = 49; 
+
         public int nbrejoueur;
         Joueur[] listeJoueur;
+        int jEnCours;
+        private Action act; 
+
         private List<Carte> piocheP;
         List<Carte> pioche
         {
@@ -32,11 +46,12 @@ namespace TakenokoVisuel
                 piocheP = value;
             }
         }
-
-        int jEnCours;
-        private bool placer_parcelle = false; 
-
+        
         public Graphics baseDessin;
+        private Pen contour;
+        SolidBrush texte;
+        Font police;
+        StringFormat formatTexte; 
         private Color choixCouleur; 
 
         public Bambouseraie(ArrayList joueurs, int nbrej)
@@ -79,13 +94,16 @@ namespace TakenokoVisuel
             { 
                 pioche.Add(new Carte(rand.Next(1,4)));
             }
-            Console.WriteLine(pioche.ToString()); 
             #endregion 
 
 
             #region Initialisation du tableau des joueurs
             nbrejoueur = nbrej;
-            listeJoueur = (Joueur[])joueurs.ToArray(typeof(Joueur)); 
+            listeJoueur = (Joueur[])joueurs.ToArray(typeof(Joueur));
+            foreach (Joueur j in listeJoueur)
+            {
+                j.piocher(pioche); 
+            }
             jEnCours = 0;
             #endregion 
 
@@ -98,19 +116,47 @@ namespace TakenokoVisuel
             this.Refresh();
             #endregion
 
+            #region Initialisation des pinceaux
+            contour = new Pen(Color.Black);
+            texte = new SolidBrush(Color.Black);
+            police = new Font("Arial", 20);
+            formatTexte = new StringFormat();
+            formatTexte.Alignment = StringAlignment.Center;
+            formatTexte.LineAlignment = StringAlignment.Center;
+            #endregion 
+
         }
 
         private void tracer_parcelle(Parcelle p)
         {
             if (p.afficher == false && p.etang != true)
             {
-                baseDessin.DrawRectangle(p.contour, p.dimension);
+                // contour du rectangle (noir)
+                baseDessin.DrawRectangle(contour, p.dimension);
+                // intérieur du rectangle (vert/rose/jaune)
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
+                // nbre de bambou sur cette parcelle
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
                 p.afficher = true;
             }
         }
 
-        private void trouver_parcelle(MouseEventArgs souris, Color couleur)
+        private void tracer_parcelle(Parcelle p, Color choix)
+        {
+            if (p.afficher == false && p.etang != true)
+            {
+                p.choixCouleur(choix); 
+                // contour du rectangle (noir)
+                baseDessin.DrawRectangle(contour, p.dimension);
+                // intérieur du rectangle (vert/rose/jaune)
+                baseDessin.FillRectangle(p.remplissage, p.dimension);
+                // nbre de bambou sur cette parcelle
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
+                p.afficher = true;
+            }
+        }
+
+        private Parcelle trouver_parcelle(MouseEventArgs souris)
         {
 
             for (int ligne = 0; ligne < 9; ligne++)
@@ -120,11 +166,12 @@ namespace TakenokoVisuel
                     if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
                     {
                         Parcelle p = tableauParcelle[ligne, colonne];
-                        p.choixCouleur(couleur); 
-                        tracer_parcelle(p); 
+                        return p; 
                     }
                 }
             }
+
+            return null; 
         }
 
         // Affiche le nom du joueur qui doit faire effectuer son tour ainsi que ses objectifs 
@@ -136,6 +183,7 @@ namespace TakenokoVisuel
             Obj4.Hide();
             Obj5.Hide();
 
+            act = Action.Indefinie; 
             MessageBox.Show("C'est à " + listeJoueur[jEnCours].nom + " de jouer.");
 
             if (listeJoueur[jEnCours].main.Count() >= 1)
@@ -194,44 +242,69 @@ namespace TakenokoVisuel
 
         private void piocheParcelle_Click(object sender, EventArgs e)
         {
-            placer_parcelle = true;
+            act = Action.Parcelle; 
             choixCouleurParcelle.Show(); 
+        }
+
+        private void arroser_Click(object sender, EventArgs e)
+        {
+            act = Action.Arroser;
+        }
+
+        private void changementJoueur()
+        {
+            if (jEnCours != listeJoueur.Count() - 1)
+                jEnCours++;
+            else
+                jEnCours = 0;
+            Tour();
         }
 
         private void zoneJardin_Click(object sender, MouseEventArgs e)
         {
 
             int xsouris = e.X;
-            int ysouris = e.Y; 
+            int ysouris = e.Y;
 
-            if (placer_parcelle == true)
+            Parcelle p = trouver_parcelle(e); 
+
+            if (act == Action.Parcelle)
             {
-                trouver_parcelle(e, choixCouleur);
-                placer_parcelle = false; 
-                if (jEnCours != listeJoueur.Count() - 1)
-                    jEnCours++;
+                tracer_parcelle(p, choixCouleur);
+                changementJoueur(); 
+            }
+            if (act == Action.Arroser)
+            {
+                if (p.afficher == true)
+                    p.afficher = false;
+                if (p.nbreBambou == 4)
+                    MessageBox.Show("Ce bambou est complètement poussé.");
                 else
-                    jEnCours = 0;
-                Tour();
+                {
+                    p.nbreBambou++;
+                    tracer_parcelle(p);
+                    changementJoueur();
+                }
             }
         }
 
         private void ColorGreen_Click(object sender, EventArgs e)
         {
             choixCouleur = Color.Green;
-            choixCouleurParcelle.Hide(); 
+            choixCouleurParcelle.Hide();
         }
 
         private void ColorPink_Click(object sender, EventArgs e)
         {
             choixCouleur = Color.Pink;
-            choixCouleurParcelle.Hide(); 
+            choixCouleurParcelle.Hide();
+            
         }
 
         private void ColorYellow_Click(object sender, EventArgs e)
         {
             choixCouleur = Color.Yellow;
-            choixCouleurParcelle.Hide(); 
+            choixCouleurParcelle.Hide();
         }
     }
 }

@@ -67,7 +67,7 @@ namespace TakenokoVisuel
             {
                 for (yParcelle = 0; yParcelle < 450; yParcelle += 50)
                 {
-                    tableauParcelle[ligne, colonne] = new Parcelle(xParcelle, yParcelle, tailleParcelle);
+                    tableauParcelle[ligne, colonne] = new Parcelle(ligne, colonne, xParcelle, yParcelle, tailleParcelle);
                     ligne++;
                 }
                 ligne = 0;
@@ -127,56 +127,8 @@ namespace TakenokoVisuel
 
         }
 
-        private void tracer_parcelle(Parcelle p)
-        {
-            if (p.afficher == false && p.etang != true)
-            {
-                // contour du rectangle (noir)
-                baseDessin.DrawRectangle(contour, p.dimension);
-                // intérieur du rectangle (vert/rose/jaune)
-                baseDessin.FillRectangle(p.remplissage, p.dimension);
-                // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
-                p.afficher = true;
-            }
-        }
 
-        private bool tracer_parcelle(Parcelle p, Color choix)
-        {
-            if (p.afficher == false && p.etang != true)
-            {
-                p.choixCouleur(choix); 
-                // contour du rectangle (noir)
-                baseDessin.DrawRectangle(contour, p.dimension);
-                // intérieur du rectangle (vert/rose/jaune)
-                baseDessin.FillRectangle(p.remplissage, p.dimension);
-                // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
-                p.afficher = true;
-                return true; 
-            }
-
-            return false; 
-        }
-
-        private Parcelle trouver_parcelle(MouseEventArgs souris)
-        {
-
-            for (int ligne = 0; ligne < 9; ligne++)
-            {
-                for (int colonne = 0; colonne < 9; colonne++)
-                {
-                    if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
-                    {
-                        Parcelle p = tableauParcelle[ligne, colonne];
-                        return p; 
-                    }
-                }
-            }
-
-            return null; 
-        }
-
+        #region Gestion Joueur
         // Affiche le nom du joueur qui doit faire effectuer son tour ainsi que ses objectifs 
         public void Tour()
         {
@@ -216,14 +168,24 @@ namespace TakenokoVisuel
             }
             
         }
+        private void changementJoueur()
+        {
+            if (jEnCours != listeJoueur.Count() - 1)
+                jEnCours++;
+            else
+                jEnCours = 0;
+            Tour();
+        }
+        #endregion
 
-        private void button1_Click(object sender, EventArgs e)
+
+        private void quitter_Click(object sender, EventArgs e)
         {
             MessageBox.Show("ATTENTION\nvous quitter définitivement la partie."); 
             System.Environment.Exit(0); 
         }
 
-        private void piocheCarte_Click(object sender, EventArgs e)
+        private void piocherCarte_Click(object sender, EventArgs e)
         {
             if (piocheP.Count() > 0)
             {
@@ -243,10 +205,106 @@ namespace TakenokoVisuel
                 MessageBox.Show("Il n'y a plus de carte disponible.\nChoississez une autre action."); 
         }
 
-        private void piocheParcelle_Click(object sender, EventArgs e)
+        private void piocherParcelle_Click(object sender, EventArgs e)
         {
             act = Action.Parcelle; 
             choixCouleurParcelle.Show(); 
+        }
+        private void tracer_parcelle(Parcelle p)
+        {
+            if (p.afficher == false && p.etang != true)
+            {
+                // contour du rectangle (noir)
+                baseDessin.DrawRectangle(contour, p.dimension);
+                // intérieur du rectangle (vert/rose/jaune)
+                baseDessin.FillRectangle(p.remplissage, p.dimension);
+                // nbre de bambou sur cette parcelle
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
+                p.afficher = true;
+            }
+        }
+        private bool tracer_parcelle(Parcelle p, Color choix)
+        {
+            if (p.afficher == false && p.etang != true)
+            {
+                p.choixCouleur(choix);
+                // contour du rectangle (noir)
+                baseDessin.DrawRectangle(contour, p.dimension);
+                // intérieur du rectangle (vert/rose/jaune)
+                baseDessin.FillRectangle(p.remplissage, p.dimension);
+                // nbre de bambou sur cette parcelle
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
+                p.afficher = true;
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool trouver_liaison(Parcelle p)
+        {
+            bool lien = true;
+            int lignep = p.ligne;
+            int colonnep = p.colonne;
+
+            #region Parcelle adjacente haute
+            Parcelle haut; 
+            if (lignep == 0)
+                haut = tableauParcelle[lignep, colonnep];
+            else
+                haut = tableauParcelle[lignep - 1, colonnep];
+            #endregion 
+
+            #region Parcelle adjacente basse
+            Parcelle bas;
+            if (lignep == 9)
+                bas = tableauParcelle[lignep, colonnep];
+            else
+                bas = tableauParcelle[lignep + 1, colonnep];
+            #endregion 
+
+            #region Parcelle adjacente gauche
+            Parcelle gauche;
+            if (colonnep == 0)
+                gauche = tableauParcelle[lignep, colonnep]; 
+            else
+                gauche = tableauParcelle[lignep, colonnep - 1]; 
+            #endregion 
+
+            #region Parcelle adjacente droite
+            Parcelle droite;
+            if (colonnep == 9)
+                droite = tableauParcelle[lignep, colonnep];
+            else
+                droite = tableauParcelle[lignep, colonnep + 1];
+            #endregion 
+
+            if (haut.afficher == false && bas.afficher == false && droite.afficher == false && gauche.afficher == false)
+                lien = false; 
+            return lien; 
+        }
+        private Parcelle trouver_parcelle(MouseEventArgs souris)
+        {
+            for (int ligne = 0; ligne < 9; ligne++)
+            {
+                for (int colonne = 0; colonne < 9; colonne++)
+                {
+                    if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
+                    {
+                        Parcelle p = tableauParcelle[ligne, colonne];
+                        if(p.afficher == true)
+                        {
+                            MessageBox.Show("Il y a déjà une parcelle ici.");
+                            return null; 
+                        }
+                        if (!trouver_liaison(p))
+                            MessageBox.Show("Pas de lien entre cette parcelle et les autres."); 
+                        return p;
+                    }
+                }
+            }
+
+            return null;
         }
 
         private void arroser_Click(object sender, EventArgs e)
@@ -254,15 +312,7 @@ namespace TakenokoVisuel
             act = Action.Arroser;
         }
 
-        private void changementJoueur()
-        {
-            if (jEnCours != listeJoueur.Count() - 1)
-                jEnCours++;
-            else
-                jEnCours = 0;
-            Tour();
-        }
-
+       
         private void zoneJardin_Click(object sender, MouseEventArgs e)
         {
 
@@ -273,10 +323,13 @@ namespace TakenokoVisuel
 
             if (act == Action.Parcelle)
             {
-                if (!tracer_parcelle(p, choixCouleur))
-                    MessageBox.Show("Il y a déjà une parcelle ici."); 
-                else
-                    changementJoueur(); 
+                if(choixCouleur.IsEmpty)
+                    MessageBox.Show("Vous n'avez pas choisi la couleur de la parcelle.");
+                else if( p!= null)
+                {
+                    tracer_parcelle(p, choixCouleur); 
+                    changementJoueur();
+                }
             }
             if (act == Action.Arroser)
             {
@@ -292,6 +345,8 @@ namespace TakenokoVisuel
                 }
             }
         }
+
+        #region choixCouleurParcelle
 
         private void ColorGreen_Click(object sender, EventArgs e)
         {
@@ -311,5 +366,8 @@ namespace TakenokoVisuel
             choixCouleur = Color.Yellow;
             choixCouleurParcelle.Hide();
         }
+
+        #endregion 
+      
     }
 }

@@ -55,7 +55,7 @@
             this.joueur2.TabIndex = 3;
             this.joueur2.Text = "2";
             this.joueur2.UseVisualStyleBackColor = true;
-            this.joueur2.Click += new System.EventHandler(this.button2_Click);
+            this.joueur2.Click += new System.EventHandler(this.joueur2_Click);
             // 
             // joueur3
             // 
@@ -65,7 +65,7 @@
             this.joueur3.TabIndex = 4;
             this.joueur3.Text = "3";
             this.joueur3.UseVisualStyleBackColor = true;
-            this.joueur3.Click += new System.EventHandler(this.button3_Click);
+            this.joueur3.Click += new System.EventHandler(this.joueur3_Click);
             // 
             // joueur4
             // 
@@ -75,7 +75,7 @@
             this.joueur4.TabIndex = 5;
             this.joueur4.Text = "4";
             this.joueur4.UseVisualStyleBackColor = true;
-            this.joueur4.Click += new System.EventHandler(this.button4_Click);
+            this.joueur4.Click += new System.EventHandler(this.joueur4_Click);
             // 
             // groupeBoxNbreJoueur
             // 
@@ -182,7 +182,7 @@
             this.DebutPartie.TabIndex = 8;
             this.DebutPartie.Text = "Commencer !";
             this.DebutPartie.UseVisualStyleBackColor = true;
-            this.DebutPartie.Click += new System.EventHandler(this.button1_Click);
+            this.DebutPartie.Click += new System.EventHandler(this.debut_Click);
             // 
             // quitter
             // 

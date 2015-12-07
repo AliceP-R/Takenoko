@@ -23,7 +23,7 @@ namespace TakenokoVisuel
             joueurs = new ArrayList(); 
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void joueur2_Click(object sender, EventArgs e)
         {
             nbreJoueur = 2; 
             groupeBoxNomJoueur.Show();
@@ -34,7 +34,7 @@ namespace TakenokoVisuel
             DebutPartie.Show(); 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void joueur3_Click(object sender, EventArgs e)
         {
             nbreJoueur = 3; 
             groupeBoxNomJoueur.Show();
@@ -45,7 +45,7 @@ namespace TakenokoVisuel
             DebutPartie.Show(); 
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void joueur4_Click(object sender, EventArgs e)
         {
             nbreJoueur = 4; 
             groupeBoxNomJoueur.Show();
@@ -56,9 +56,9 @@ namespace TakenokoVisuel
             DebutPartie.Show(); 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void debut_Click(object sender, EventArgs e)
         {
-            if (joueurs.Count != nbreJoueur || joueurs.Contains(""))
+            if (joueurs.Count != nbreJoueur)
             {
                 MessageBox.Show("Vous avez oublié un nom.");
                 return;
@@ -79,6 +79,8 @@ namespace TakenokoVisuel
             string nom = NomJoueur1.Text;
             if (joueurs.Contains(nom))
                 MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else if (nom.Equals(""))
+                MessageBox.Show("Ce nom n'est pas valide. Veuillez entrer au moins 1 caractère."); 
             else
                 joueurs.Add(new Joueur(nom)); 
         }
@@ -88,6 +90,8 @@ namespace TakenokoVisuel
             string nom = NomJoueur2.Text;
             if (joueurs.Contains(nom))
                 MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else if (nom.Equals(""))
+                MessageBox.Show("Ce nom n'est pas valide. Veuillez entrer au moins 1 caractère.");
             else
                 joueurs.Add(new Joueur(nom)); 
         }
@@ -97,6 +101,8 @@ namespace TakenokoVisuel
             string nom = NomJoueur3.Text;
             if (joueurs.Contains(nom))
                 MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else if (nom.Equals(""))
+                MessageBox.Show("Ce nom n'est pas valide. Veuillez entrer au moins 1 caractère.");
             else
                 joueurs.Add(new Joueur(nom)); 
         }
@@ -106,6 +112,8 @@ namespace TakenokoVisuel
             string nom = NomJoueur4.Text;
             if (joueurs.Contains(nom))
                 MessageBox.Show("Un joueur avec ce nom existe déjà.");
+            else if (nom.Equals(""))
+                MessageBox.Show("Ce nom n'est pas valide. Veuillez entrer au moins 1 caractère.");
             else
                 joueurs.Add(new Joueur(nom)); 
         }

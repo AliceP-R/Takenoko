@@ -51,6 +51,13 @@ namespace TakenokoVisuel
             }
         }
 
+        private bool realiseP;
+        public bool realise
+        {
+            get { return realiseP; }
+            set { realiseP = value;}
+        }
+
         Couleur couleur;
 
         private void randCouleur()
@@ -96,7 +103,8 @@ namespace TakenokoVisuel
                     typePrive = Type.Indefini;
                     break;
             }
-            Thread.Sleep(1); 
+            Thread.Sleep(1);
+            realiseP = false; 
         }
 
         public override string ToString() 

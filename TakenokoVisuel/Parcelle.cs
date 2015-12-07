@@ -41,7 +41,10 @@ namespace TakenokoVisuel
         public bool afficher;
         public bool etang;  
 
-        public Parcelle(int x, int y, int t)
+        public int ligne; 
+        public int colonne; 
+
+        public Parcelle(int l, int c, int x, int y, int t)
         {
             dimension.X = x;
             dimension.Y = y;
@@ -49,7 +52,9 @@ namespace TakenokoVisuel
             remplissage = new SolidBrush(Color.Yellow);
             afficher = false;
             etang = false;
-            nbreBambouP = 0; 
+            nbreBambouP = 0;
+            ligne = l;
+            colonne = c; 
         }
 
         public void choixCouleur(Color couleur)

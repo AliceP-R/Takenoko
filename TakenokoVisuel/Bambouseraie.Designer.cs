@@ -102,7 +102,7 @@
             this.piocheCarte.TabIndex = 1;
             this.piocheCarte.Text = "Piocher Carte";
             this.piocheCarte.UseVisualStyleBackColor = true;
-            this.piocheCarte.Click += new System.EventHandler(this.piocheCarte_Click);
+            this.piocheCarte.Click += new System.EventHandler(this.piocherCarte_Click);
             // 
             // piocheParcelle
             // 
@@ -112,7 +112,7 @@
             this.piocheParcelle.TabIndex = 0;
             this.piocheParcelle.Text = "Piocher Parcelle";
             this.piocheParcelle.UseVisualStyleBackColor = true;
-            this.piocheParcelle.Click += new System.EventHandler(this.piocheParcelle_Click);
+            this.piocheParcelle.Click += new System.EventHandler(this.piocherParcelle_Click);
             // 
             // groupBoxObjectif
             // 
@@ -181,7 +181,7 @@
             this.quitter.TabIndex = 4;
             this.quitter.Text = "Quitter";
             this.quitter.UseVisualStyleBackColor = true;
-            this.quitter.Click += new System.EventHandler(this.button1_Click);
+            this.quitter.Click += new System.EventHandler(this.quitter_Click);
             // 
             // zoneJardin
             // 

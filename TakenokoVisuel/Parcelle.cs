@@ -22,21 +22,11 @@ namespace TakenokoVisuel
             } 
         }
 
-        private bool irigueeP;
-        public bool iriguee
-        {
-            get
-            {
-                return irigueeP;
-            }
-            set
-            {
-                irigueeP = value;
-            }
-        }
+        public bool irriguee;
 
         public SolidBrush remplissage; 
         public Rectangle dimension;
+        public SolidBrush texte; 
 
         public bool afficher;
         public bool etang;  
@@ -49,9 +39,11 @@ namespace TakenokoVisuel
             dimension.X = x;
             dimension.Y = y;
             dimension.Width = dimension.Height = t;
-            remplissage = new SolidBrush(Color.Yellow);
+            remplissage = new SolidBrush(Color.White);
+            texte = new SolidBrush(Color.Black); 
             afficher = false;
             etang = false;
+            irriguee = false; 
             nbreBambouP = 0;
             ligne = l;
             colonne = c; 

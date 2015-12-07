@@ -20,7 +20,8 @@ namespace TakenokoVisuel
         Arroser, 
         Piocher, 
         BougerPanda, 
-        BougerJardinier
+        BougerJardinier, 
+        Irriguer
     }
 
     public partial class Bambouseraie : Form
@@ -49,7 +50,6 @@ namespace TakenokoVisuel
         
         public Graphics baseDessin;
         private Pen contour;
-        SolidBrush texte;
         Font police;
         StringFormat formatTexte;
         private Color choixCouleur;  
@@ -111,12 +111,12 @@ namespace TakenokoVisuel
 
             #region Définition de l'étang 
             tableauParcelle[4, 4].etang = true;
+            tableauParcelle[4, 4].irriguee = true;
             tableauParcelle[4, 4].choixCouleur(Color.Blue); 
             #endregion
 
             #region Initialisation des pinceaux
             contour = new Pen(Color.Black);
-            texte = new SolidBrush(Color.Black);
             police = new Font("Arial", 20);
             formatTexte = new StringFormat();
             formatTexte.Alignment = StringAlignment.Center;
@@ -213,7 +213,7 @@ namespace TakenokoVisuel
                 // intérieur du rectangle (vert/rose/jaune)
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
                 // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
                 p.afficher = true;
             }
         }
@@ -228,7 +228,7 @@ namespace TakenokoVisuel
                 // intérieur du rectangle (vert/rose/jaune)
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
                 // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, texte, p.dimension, formatTexte);
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
                 p.afficher = true;
                 return true;
             }
@@ -279,6 +279,49 @@ namespace TakenokoVisuel
             return lien; 
         }
 
+        private bool trouver_liaison_irrigation(Parcelle p)
+        {
+            bool lien = true;
+            int lignep = p.ligne;
+            int colonnep = p.colonne;
+
+            #region Parcelle adjacente haute
+            Parcelle haut;
+            if (lignep == 0)
+                haut = tableauParcelle[lignep, colonnep];
+            else
+                haut = tableauParcelle[lignep - 1, colonnep];
+            #endregion
+
+            #region Parcelle adjacente basse
+            Parcelle bas;
+            if (lignep == 9)
+                bas = tableauParcelle[lignep, colonnep];
+            else
+                bas = tableauParcelle[lignep + 1, colonnep];
+            #endregion
+
+            #region Parcelle adjacente gauche
+            Parcelle gauche;
+            if (colonnep == 0)
+                gauche = tableauParcelle[lignep, colonnep];
+            else
+                gauche = tableauParcelle[lignep, colonnep - 1];
+            #endregion
+
+            #region Parcelle adjacente droite
+            Parcelle droite;
+            if (colonnep == 9)
+                droite = tableauParcelle[lignep, colonnep];
+            else
+                droite = tableauParcelle[lignep, colonnep + 1];
+            #endregion
+
+            if (haut.irriguee == false && bas.irriguee == false && droite.irriguee == false && gauche.irriguee == false)
+                lien = false;
+            return lien;
+        }
+
         private Parcelle trouver_parcelle(MouseEventArgs souris)
         {
             for (int ligne = 0; ligne < 9; ligne++)
@@ -308,8 +351,8 @@ namespace TakenokoVisuel
             int xsouris = e.X;
             int ysouris = e.Y;
  
-            Parcelle p = trouver_parcelle(e); 
-
+            Parcelle p = trouver_parcelle(e);
+            #region placer parcelle
             if (act == Action.Parcelle)
             {
                 if(choixCouleur.IsEmpty || choixCouleur == Color.White)
@@ -327,6 +370,8 @@ namespace TakenokoVisuel
                     changementJoueur();
                 }
             }
+            #endregion 
+            #region arroser
             if (act == Action.Arroser)
             {
                 if (p.nbreBambou == 4)
@@ -343,6 +388,27 @@ namespace TakenokoVisuel
                     changementJoueur();
                 }
             }
+            #endregion 
+            #region irriger
+            if (act == Action.Irriguer)
+            {
+                if (p.etang == true)
+                    MessageBox.Show("Pas besoin d'irriguer l'étant !");
+                else if (p.afficher == false)
+                    MessageBox.Show("Il n'y a pas de parcelle ici.");
+                else if (p.irriguee == true)
+                    MessageBox.Show("Cette parcelle est déjà irriguée.");
+                else if (!trouver_liaison_irrigation(p))
+                    MessageBox.Show("Les parcelles adjacentes ne sont pas irriguées."); 
+                else
+                {
+                    p.texte.Color = Color.Blue;
+                    p.irriguee = true;
+                    baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
+                    changementJoueur();
+                }
+            }
+            #endregion 
         }
 
         #region choixCouleurParcelle
@@ -379,6 +445,11 @@ namespace TakenokoVisuel
 
             Obj1.Text = listeJoueur[jEnCours].main[0].objectif;
             Obj1.Show();
+        }
+
+        private void irriguer_Click(object sender, EventArgs e)
+        {
+            act = Action.Irriguer;
         }
       
     }

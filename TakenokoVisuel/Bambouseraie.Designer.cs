@@ -47,6 +47,7 @@
             this.ColorYellow = new System.Windows.Forms.Button();
             this.ColorGreen = new System.Windows.Forms.Button();
             this.lancement = new System.Windows.Forms.Button();
+            this.irriguer = new System.Windows.Forms.Button();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
@@ -55,6 +56,7 @@
             // 
             // groupBoxAction
             // 
+            this.groupBoxAction.Controls.Add(this.irriguer);
             this.groupBoxAction.Controls.Add(this.deplacerPanda);
             this.groupBoxAction.Controls.Add(this.deplacerJardinier);
             this.groupBoxAction.Controls.Add(this.arroser);
@@ -87,7 +89,7 @@
             // 
             // arroser
             // 
-            this.arroser.Location = new System.Drawing.Point(52, 59);
+            this.arroser.Location = new System.Drawing.Point(6, 59);
             this.arroser.Name = "arroser";
             this.arroser.Size = new System.Drawing.Size(75, 34);
             this.arroser.TabIndex = 2;
@@ -251,6 +253,16 @@
             this.lancement.UseVisualStyleBackColor = true;
             this.lancement.Click += new System.EventHandler(this.lancement_Click);
             // 
+            // irriguer
+            // 
+            this.irriguer.Location = new System.Drawing.Point(87, 59);
+            this.irriguer.Name = "irriguer";
+            this.irriguer.Size = new System.Drawing.Size(75, 34);
+            this.irriguer.TabIndex = 5;
+            this.irriguer.Text = "Irriguer";
+            this.irriguer.UseVisualStyleBackColor = true;
+            this.irriguer.Click += new System.EventHandler(this.irriguer_Click);
+            // 
             // Bambouseraie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -294,5 +306,6 @@
         private System.Windows.Forms.Button ColorYellow;
         private System.Windows.Forms.Button ColorGreen;
         private System.Windows.Forms.Button lancement;
+        private System.Windows.Forms.Button irriguer;
     }
 }

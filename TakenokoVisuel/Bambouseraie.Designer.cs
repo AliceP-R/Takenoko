@@ -203,7 +203,7 @@
             this.zoneJardin.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.zoneJardin.Location = new System.Drawing.Point(213, 31);
             this.zoneJardin.Name = "zoneJardin";
-            this.zoneJardin.Size = new System.Drawing.Size(450, 450);
+            this.zoneJardin.Size = new System.Drawing.Size(540, 540);
             this.zoneJardin.TabIndex = 5;
             this.zoneJardin.TabStop = false;
             this.zoneJardin.MouseClick += new System.Windows.Forms.MouseEventHandler(this.zoneJardin_Click);
@@ -257,7 +257,7 @@
             // lancement
             // 
             this.lancement.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lancement.Location = new System.Drawing.Point(349, 94);
+            this.lancement.Location = new System.Drawing.Point(414, 84);
             this.lancement.Name = "lancement";
             this.lancement.Size = new System.Drawing.Size(173, 82);
             this.lancement.TabIndex = 7;
@@ -269,7 +269,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(703, 526);
+            this.ClientSize = new System.Drawing.Size(783, 604);
             this.Controls.Add(this.lancement);
             this.Controls.Add(this.choixCouleurParcelle);
             this.Controls.Add(this.zoneJardin);

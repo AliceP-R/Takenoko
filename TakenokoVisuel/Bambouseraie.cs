@@ -27,8 +27,9 @@ namespace TakenokoVisuel
     public partial class Bambouseraie : Form
     {
 
-        private Parcelle[,] tableauParcelle = new Parcelle[9,9];
-        private int tailleParcelle = 49; 
+        private Parcelle[,] tableauParcelle;
+        private const int tailleParcelle = 59;
+        private int nbreParcelle; 
 
         public int nbrejoueur;
         Joueur[] listeJoueur;
@@ -52,20 +53,27 @@ namespace TakenokoVisuel
         private Pen contour;
         Font police;
         StringFormat formatTexte;
-        private Color choixCouleur;  
+        private Color choixCouleur;
+
+        private Bitmap jardinier;
+        private Bitmap panda; 
 
         public Bambouseraie(ArrayList joueurs, int nbrej)
         {
+            InitializeComponent();
+            baseDessin = zoneJardin.CreateGraphics();
 
             #region Initialisation du tableau contenant les parcelles
+            nbreParcelle = zoneJardin.Height / tailleParcelle; 
+            tableauParcelle = new Parcelle[nbreParcelle, nbreParcelle];
             int xParcelle = 0;
             int yParcelle = 0;
             int ligne = 0;
             int colonne = 0;
 
-            for (xParcelle = 0; xParcelle < 450; xParcelle += 50)
+            for (xParcelle = 0; xParcelle < zoneJardin.Height; xParcelle += (tailleParcelle+1))
             {
-                for (yParcelle = 0; yParcelle < 450; yParcelle += 50)
+                for (yParcelle = 0; yParcelle < zoneJardin.Height; yParcelle += (tailleParcelle+1))
                 {
                     tableauParcelle[ligne, colonne] = new Parcelle(ligne, colonne, xParcelle, yParcelle, tailleParcelle);
                     ligne++;
@@ -74,9 +82,6 @@ namespace TakenokoVisuel
                 colonne++;
             }
             #endregion 
-
-
-            InitializeComponent();
 
             #region Initialisation affichage objectif
             Obj1.Hide();
@@ -102,7 +107,7 @@ namespace TakenokoVisuel
             listeJoueur = (Joueur[])joueurs.ToArray(typeof(Joueur));
             #endregion 
 
-            baseDessin = zoneJardin.CreateGraphics();
+            
 
             #region Définition de l'étang 
             tableauParcelle[4, 4].etang = true;
@@ -117,6 +122,12 @@ namespace TakenokoVisuel
             formatTexte.Alignment = StringAlignment.Center;
             formatTexte.LineAlignment = StringAlignment.Center;
             #endregion 
+
+            #region Définition des images
+            jardinier = new Bitmap("C:/Users/Alice/Documents/Visual Studio 2013/Projects/Takenoko/TakenokoVisuel/img/jardinier.png");
+            panda = new Bitmap("C:/Users/Alice/Documents/Visual Studio 2013/Projects/Takenoko/TakenokoVisuel/img/panda.png"); 
+            #endregion 
+
 
         }
 
@@ -248,7 +259,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente basse
             Parcelle bas;
-            if (lignep == 8)
+            if (lignep == nbreParcelle-1)
                 bas = tableauParcelle[lignep, colonnep];
             else
                 bas = tableauParcelle[lignep + 1, colonnep];
@@ -264,7 +275,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente droite
             Parcelle droite;
-            if (colonnep == 8)
+            if (colonnep == nbreParcelle - 1)
                 droite = tableauParcelle[lignep, colonnep];
             else
                 droite = tableauParcelle[lignep, colonnep + 1];
@@ -291,7 +302,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente basse
             Parcelle bas;
-            if (lignep == 9)
+            if (lignep == nbreParcelle -1 )
                 bas = tableauParcelle[lignep, colonnep];
             else
                 bas = tableauParcelle[lignep + 1, colonnep];
@@ -307,7 +318,7 @@ namespace TakenokoVisuel
 
             #region Parcelle adjacente droite
             Parcelle droite;
-            if (colonnep == 9)
+            if (colonnep == nbreParcelle-1)
                 droite = tableauParcelle[lignep, colonnep];
             else
                 droite = tableauParcelle[lignep, colonnep + 1];
@@ -320,9 +331,9 @@ namespace TakenokoVisuel
 
         private Parcelle trouver_parcelle(MouseEventArgs souris)
         {
-            for (int ligne = 0; ligne < 9; ligne++)
+            for (int ligne = 0; ligne < nbreParcelle; ligne++)
             {
-                for (int colonne = 0; colonne < 9; colonne++)
+                for (int colonne = 0; colonne < nbreParcelle; colonne++)
                 {
                     if (tableauParcelle[ligne, colonne].curseur_dedans(souris.X, souris.Y, tailleParcelle) == true)
                     {
@@ -452,8 +463,16 @@ namespace TakenokoVisuel
             baseDessin.FillRectangle(tableauParcelle[4, 4].remplissage, tableauParcelle[4, 4].dimension);
             tableauParcelle[4, 4].afficher = true;
             #endregion
+
+            #region objectif du premier joueur 
             Obj1.Text = listeJoueur[jEnCours].main[0].objectif;
             Obj1.Show();
+            #endregion 
+
+            #region panda et jardinier 
+            baseDessin.DrawImage(jardinier, tableauParcelle[4,4].dimension);
+            //baseDessin.DrawImage(panda, tableauParcelle[4, 4].dimension); 
+            #endregion 
         }
 
         private void irriguer_Click(object sender, EventArgs e)

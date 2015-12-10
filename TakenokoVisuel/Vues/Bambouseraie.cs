@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Input;
+using TakenokoVisuel.Elements;
 
 
 namespace TakenokoVisuel
@@ -55,8 +56,9 @@ namespace TakenokoVisuel
         StringFormat formatTexte;
         private Color choixCouleur;
 
-        private Bitmap jardinier;
-        private Bitmap panda; 
+        private Acteur jardinier;
+        private Acteur panda;
+        private int tailleInformation = 29; 
 
         public Bambouseraie(ArrayList joueurs, int nbrej)
         {
@@ -112,6 +114,8 @@ namespace TakenokoVisuel
             #region Définition de l'étang 
             tableauParcelle[4, 4].etang = true;
             tableauParcelle[4, 4].irriguee = true;
+            tableauParcelle[4, 4].jardinier = true;
+            tableauParcelle[4, 4].panda = true;
             tableauParcelle[4, 4].choixCouleur(Color.Blue); 
             #endregion
 
@@ -124,8 +128,10 @@ namespace TakenokoVisuel
             #endregion 
 
             #region Définition des images
-            jardinier = new Bitmap("C:/Users/Alice/Documents/Visual Studio 2013/Projects/Takenoko/TakenokoVisuel/img/jardinier.png");
-            panda = new Bitmap("C:/Users/Alice/Documents/Visual Studio 2013/Projects/Takenoko/TakenokoVisuel/img/panda.png"); 
+            string dossierimg = "C:/Users/Alice/Documents/Visual Studio 2013/Projects/Takenoko/TakenokoVisuel/img/";
+            jardinier = new Acteur(dossierimg + "jardinier.png", tableauParcelle[4, 4].dimension.X, tableauParcelle[4, 4].dimension.Y, tableauParcelle[4,4], tailleInformation);
+            int xpanda = tableauParcelle[4, 4].dimension.X + tailleParcelle - tailleInformation; 
+            panda = new Acteur(dossierimg + "panda.png", xpanda, tableauParcelle[4, 4].dimension.Y, tableauParcelle[4,4], tailleInformation); 
             #endregion 
 
 
@@ -211,16 +217,29 @@ namespace TakenokoVisuel
             act = Action.Parcelle; 
             choixCouleurParcelle.Show(); 
         }
+        
         private void tracer_parcelle(Parcelle p)
         {
-            if (p.afficher == false && p.etang != true)
+            if (p.afficher == false && (p.etang != true || act == Action.BougerJardinier || act == Action.BougerPanda))
             {
                 // contour du rectangle (noir)
                 baseDessin.DrawRectangle(contour, p.dimension);
                 // intérieur du rectangle (vert/rose/jaune)
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
                 // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension.X+tailleInformation, p.dimension.Y+tailleInformation, formatTexte);
+                // jardinier 
+                if (p.jardinier == true)
+                {
+                    jardinier.mouvement(p.dimension.X, p.dimension.Y);
+                    baseDessin.DrawImage(jardinier.image, jardinier.placement);
+                }
+                // panda 
+                if (p.panda == true)
+                {
+                    panda.mouvement(p.dimension.X + tailleParcelle - tailleInformation, p.dimension.Y);
+                    baseDessin.DrawImage(panda.image, panda.placement);
+                }
                 p.afficher = true;
             }
         }
@@ -235,7 +254,19 @@ namespace TakenokoVisuel
                 // intérieur du rectangle (vert/rose/jaune)
                 baseDessin.FillRectangle(p.remplissage, p.dimension);
                 // nbre de bambou sur cette parcelle
-                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension, formatTexte);
+                baseDessin.DrawString(p.nbreBambou.ToString(), police, p.texte, p.dimension.X + tailleInformation, p.dimension.Y + tailleInformation, formatTexte);
+                // jardinier 
+                if (p.jardinier == true)
+                {
+                    jardinier.mouvement(p.dimension.X, p.dimension.Y);
+                    baseDessin.DrawImage(jardinier.image, jardinier.placement);
+                }
+                // panda 
+                if (p.panda == true)
+                {
+                    panda.mouvement(p.dimension.X + tailleParcelle - tailleInformation, p.dimension.Y);
+                    baseDessin.DrawImage(panda.image, panda.placement);
+                }
                 p.afficher = true;
                 return true;
             }
@@ -351,7 +382,97 @@ namespace TakenokoVisuel
             act = Action.Arroser;
         }
 
-       
+        private void deplacementJardinier(Parcelle p)
+        {
+            Parcelle avant = jardinier.parcelle;
+            jardinier.mouvement(p.dimension.X, p.dimension.Y);
+            #region actualisation parcelle de départ
+            avant.jardinier = false;
+            avant.afficher = false;
+            bool etang = avant.etang; 
+            if (etang == true)
+                avant.etang = false; 
+            tracer_parcelle(avant);
+            if (etang == true)
+                avant.etang = true; 
+
+            #endregion 
+
+            #region actualisation parcelle d'arrivée 
+            jardinier.parcelle = p;
+            p.afficher = false;
+            p.jardinier = true;
+            if (p.nbreBambou < 4 && p.irriguee && !p.etang)
+                p.nbreBambou++;
+            tracer_parcelle(p);
+            #endregion 
+
+            #region actualisation des parcelles adajcentes 
+            int lignep = p.ligne;
+            int colonnep = p.colonne;
+
+            #region Parcelle adjacente haute
+            Parcelle haut;
+            if (lignep == 0)
+                haut = tableauParcelle[lignep, colonnep];
+            else
+                haut = tableauParcelle[lignep - 1, colonnep];
+            
+            if (haut.afficher && !haut.etang && haut.remplissage.Color == p.remplissage.Color && haut.nbreBambou < 4)
+            {
+                haut.nbreBambou++;
+                haut.afficher = false;
+                tracer_parcelle(haut);
+            }
+            #endregion
+
+            #region Parcelle adjacente basse
+            Parcelle bas;
+            if (lignep == nbreParcelle - 1)
+                bas = tableauParcelle[lignep, colonnep];
+            else
+                bas = tableauParcelle[lignep + 1, colonnep];
+
+            if (bas.afficher && !bas.etang && bas.remplissage.Color == p.remplissage.Color && bas.nbreBambou < 4)
+            {
+                bas.nbreBambou++;
+                bas.afficher = false;
+                tracer_parcelle(bas);
+            }
+            #endregion
+
+            #region Parcelle adjacente gauche
+            Parcelle gauche;
+            if (colonnep == 0)
+                gauche = tableauParcelle[lignep, colonnep];
+            else
+                gauche = tableauParcelle[lignep, colonnep - 1];
+           
+            if (gauche.afficher && !gauche.etang && gauche.remplissage.Color == p.remplissage.Color && gauche.nbreBambou < 4)
+            {
+                gauche.nbreBambou++;
+                gauche.afficher = false;
+                tracer_parcelle(gauche);
+            }
+            #endregion
+
+            #region Parcelle adjacente droite
+            Parcelle droite;
+            if (colonnep == nbreParcelle - 1)
+                droite = tableauParcelle[lignep, colonnep];
+            else
+                droite = tableauParcelle[lignep, colonnep + 1];
+
+            if (droite.afficher && !droite.etang && droite.remplissage.Color == p.remplissage.Color && droite.nbreBambou < 4)
+            {
+                droite.nbreBambou++;
+                droite.afficher = false;
+                tracer_parcelle(droite);
+            }
+            #endregion 
+            #endregion 
+
+        }
         private void zoneJardin_Click(object sender, MouseEventArgs e)
         {
 
@@ -422,6 +543,28 @@ namespace TakenokoVisuel
                 }
             }
             #endregion 
+            #region bouger jardinier
+            if (act == Action.BougerJardinier)
+            {
+                deplacementJardinier(p); 
+                changementJoueur();
+            }
+            #endregion 
+            #region bouger panda
+            if (act == Action.BougerPanda)
+            {
+                Parcelle avant = panda.parcelle;
+                panda.mouvement(p.dimension.X, p.dimension.Y);
+                panda.parcelle = p;
+                p.afficher = false;
+                p.panda = true;
+                tracer_parcelle(p);
+                avant.panda = false;
+                avant.afficher = false;
+                tracer_parcelle(avant);
+                changementJoueur();
+            }
+            #endregion 
         }
 
         #region choixCouleurParcelle
@@ -470,14 +613,24 @@ namespace TakenokoVisuel
             #endregion 
 
             #region panda et jardinier 
-            baseDessin.DrawImage(jardinier, tableauParcelle[4,4].dimension);
-            //baseDessin.DrawImage(panda, tableauParcelle[4, 4].dimension); 
+            baseDessin.DrawImage(jardinier.image, jardinier.placement);
+            baseDessin.DrawImage(panda.image, panda.placement); 
             #endregion 
         }
 
         private void irriguer_Click(object sender, EventArgs e)
         {
             act = Action.Irriguer;
+        }
+
+        private void deplacerJardinier_Click(object sender, EventArgs e)
+        {
+            act = Action.BougerJardinier; 
+        }
+
+        private void deplacerPanda_Click(object sender, EventArgs e)
+        {
+            act = Action.BougerPanda; 
         }
       
     }

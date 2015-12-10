@@ -29,7 +29,9 @@ namespace TakenokoVisuel
         public SolidBrush texte; 
 
         public bool afficher;
-        public bool etang;  
+        public bool etang;
+        public bool jardinier;
+        public bool panda; 
 
         public int ligne; 
         public int colonne; 
@@ -43,6 +45,8 @@ namespace TakenokoVisuel
             texte = new SolidBrush(Color.Black); 
             afficher = false;
             etang = false;
+            jardinier = false;
+            panda = false; 
             irriguee = false; 
             nbreBambouP = 0;
             ligne = l;

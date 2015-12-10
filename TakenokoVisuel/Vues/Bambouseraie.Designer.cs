@@ -88,6 +88,7 @@
             this.deplacerPanda.TabIndex = 4;
             this.deplacerPanda.Text = "Déplacer Panda";
             this.deplacerPanda.UseVisualStyleBackColor = true;
+            this.deplacerPanda.Click += new System.EventHandler(this.deplacerPanda_Click);
             // 
             // deplacerJardinier
             // 
@@ -97,6 +98,7 @@
             this.deplacerJardinier.TabIndex = 3;
             this.deplacerJardinier.Text = "Déplacer Jardinier";
             this.deplacerJardinier.UseVisualStyleBackColor = true;
+            this.deplacerJardinier.Click += new System.EventHandler(this.deplacerJardinier_Click);
             // 
             // arroser
             // 

@@ -44,36 +44,37 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Accueil.cs">
+    <Compile Include="Elements\Acteur.cs" />
+    <Compile Include="Vues\Accueil.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Accueil.Designer.cs">
+    <Compile Include="Vues\Accueil.Designer.cs">
       <DependentUpon>Accueil.cs</DependentUpon>
     </Compile>
-    <Compile Include="Carte.cs" />
-    <Compile Include="Debut.cs">
+    <Compile Include="Elements\Carte.cs" />
+    <Compile Include="Vues\Debut.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Debut.Designer.cs">
+    <Compile Include="Vues\Debut.Designer.cs">
       <DependentUpon>Debut.cs</DependentUpon>
     </Compile>
-    <Compile Include="Joueur.cs" />
-    <Compile Include="Parcelle.cs" />
-    <Compile Include="Bambouseraie.cs">
+    <Compile Include="Elements\Joueur.cs" />
+    <Compile Include="Elements\Parcelle.cs" />
+    <Compile Include="Vues\Bambouseraie.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Bambouseraie.Designer.cs">
+    <Compile Include="Vues\Bambouseraie.Designer.cs">
       <DependentUpon>Bambouseraie.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Accueil.resx">
+    <EmbeddedResource Include="Vues\Accueil.resx">
       <DependentUpon>Accueil.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Debut.resx">
+    <EmbeddedResource Include="Vues\Debut.resx">
       <DependentUpon>Debut.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Bambouseraie.resx">
+    <EmbeddedResource Include="Vues\Bambouseraie.resx">
       <DependentUpon>Bambouseraie.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

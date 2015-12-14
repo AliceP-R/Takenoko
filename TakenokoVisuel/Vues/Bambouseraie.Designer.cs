@@ -48,10 +48,15 @@
             this.ColorYellow = new System.Windows.Forms.Button();
             this.ColorGreen = new System.Windows.Forms.Button();
             this.lancement = new System.Windows.Forms.Button();
+            this.estomacPanda = new System.Windows.Forms.GroupBox();
+            this.estomacRose = new System.Windows.Forms.TextBox();
+            this.estomacVert = new System.Windows.Forms.TextBox();
+            this.estomacJaune = new System.Windows.Forms.TextBox();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
             this.choixCouleurParcelle.SuspendLayout();
+            this.estomacPanda.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBoxAction
@@ -192,7 +197,7 @@
             // 
             // quitter
             // 
-            this.quitter.Location = new System.Drawing.Point(64, 489);
+            this.quitter.Location = new System.Drawing.Point(64, 567);
             this.quitter.Name = "quitter";
             this.quitter.Size = new System.Drawing.Size(66, 25);
             this.quitter.TabIndex = 4;
@@ -267,11 +272,55 @@
             this.lancement.UseVisualStyleBackColor = true;
             this.lancement.Click += new System.EventHandler(this.lancement_Click);
             // 
+            // estomacPanda
+            // 
+            this.estomacPanda.Controls.Add(this.estomacJaune);
+            this.estomacPanda.Controls.Add(this.estomacVert);
+            this.estomacPanda.Controls.Add(this.estomacRose);
+            this.estomacPanda.Location = new System.Drawing.Point(12, 473);
+            this.estomacPanda.Name = "estomacPanda";
+            this.estomacPanda.Size = new System.Drawing.Size(171, 78);
+            this.estomacPanda.TabIndex = 8;
+            this.estomacPanda.TabStop = false;
+            this.estomacPanda.Text = "Estomac du Panda";
+            this.estomacPanda.Visible = false;
+            // 
+            // estomacRose
+            // 
+            this.estomacRose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.estomacRose.Location = new System.Drawing.Point(24, 29);
+            this.estomacRose.Name = "estomacRose";
+            this.estomacRose.ReadOnly = true;
+            this.estomacRose.Size = new System.Drawing.Size(35, 20);
+            this.estomacRose.TabIndex = 0;
+            this.estomacRose.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // estomacVert
+            // 
+            this.estomacVert.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.estomacVert.Location = new System.Drawing.Point(65, 29);
+            this.estomacVert.Name = "estomacVert";
+            this.estomacVert.ReadOnly = true;
+            this.estomacVert.Size = new System.Drawing.Size(35, 20);
+            this.estomacVert.TabIndex = 1;
+            this.estomacVert.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // estomacJaune
+            // 
+            this.estomacJaune.BackColor = System.Drawing.Color.Yellow;
+            this.estomacJaune.Location = new System.Drawing.Point(106, 29);
+            this.estomacJaune.Name = "estomacJaune";
+            this.estomacJaune.ReadOnly = true;
+            this.estomacJaune.Size = new System.Drawing.Size(35, 20);
+            this.estomacJaune.TabIndex = 2;
+            this.estomacJaune.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Bambouseraie
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(783, 604);
+            this.Controls.Add(this.estomacPanda);
             this.Controls.Add(this.lancement);
             this.Controls.Add(this.choixCouleurParcelle);
             this.Controls.Add(this.zoneJardin);
@@ -285,6 +334,8 @@
             this.groupBoxObjectif.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).EndInit();
             this.choixCouleurParcelle.ResumeLayout(false);
+            this.estomacPanda.ResumeLayout(false);
+            this.estomacPanda.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -311,5 +362,9 @@
         private System.Windows.Forms.Button ColorGreen;
         private System.Windows.Forms.Button lancement;
         private System.Windows.Forms.Button irriguer;
+        private System.Windows.Forms.GroupBox estomacPanda;
+        private System.Windows.Forms.TextBox estomacRose;
+        private System.Windows.Forms.TextBox estomacVert;
+        private System.Windows.Forms.TextBox estomacJaune;
     }
 }

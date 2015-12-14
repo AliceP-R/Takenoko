@@ -22,6 +22,10 @@ namespace TakenokoVisuel
             }
         }
 
+        public int nbreBambouRose;
+        public int nbreBambouVert;
+        public int nbreBambouJaune; 
+
         public string nom; 
         public Joueur(string n)
         {

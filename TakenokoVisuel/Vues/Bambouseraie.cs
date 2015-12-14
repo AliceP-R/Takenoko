@@ -176,6 +176,10 @@ namespace TakenokoVisuel
                 Obj5.Text = listeJoueur[jEnCours].main[4].objectif;
                 Obj5.Show();
             }
+
+            estomacJaune.Text = listeJoueur[jEnCours].nbreBambouJaune.ToString();
+            estomacRose.Text = listeJoueur[jEnCours].nbreBambouRose.ToString();
+            estomacVert.Text = listeJoueur[jEnCours].nbreBambouVert.ToString(); 
             
         }
         private void changementJoueur()
@@ -187,36 +191,6 @@ namespace TakenokoVisuel
             Tour();
         }
         #endregion
-
-
-        private void quitter_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show("ATTENTION\nvous quitter définitivement la partie."); 
-            System.Environment.Exit(0); 
-        }
-
-        private void piocherCarte_Click(object sender, EventArgs e)
-        {
-            if (piocheP.Count() > 0)
-            {
-                if (listeJoueur[jEnCours].main.Count < 5)
-                {
-                    Carte c = listeJoueur[jEnCours].piocher(piocheP);
-                    MessageBox.Show("Vous avez pioché " + c.ToString()); 
-                    changementJoueur(); 
-                }
-                else
-                    MessageBox.Show("Vous avez déjà 5 objectifs.\nChoississez une autre action.");
-            }
-            else
-                MessageBox.Show("Il n'y a plus de carte disponible.\nChoississez une autre action."); 
-        }
-
-        private void piocherParcelle_Click(object sender, EventArgs e)
-        {
-            act = Action.Parcelle; 
-            choixCouleurParcelle.Show(); 
-        }
         
         private void tracer_parcelle(Parcelle p)
         {
@@ -377,11 +351,6 @@ namespace TakenokoVisuel
             return null;
         }
 
-        private void arroser_Click(object sender, EventArgs e)
-        {
-            act = Action.Arroser;
-        }
-
         private void deplacementJardinier(Parcelle p)
         {
             Parcelle avant = jardinier.parcelle;
@@ -473,6 +442,79 @@ namespace TakenokoVisuel
             #endregion 
 
         }
+
+        private void deplacementPanda(Parcelle p)
+        {
+            #region actualisation parcelle de départ 
+            Parcelle avant = panda.parcelle;
+            panda.mouvement(p.dimension.X, p.dimension.Y);
+            panda.parcelle = p;
+            avant.panda = false;
+            avant.afficher = false;
+            bool etang = avant.etang;
+            if (etang == true)
+                avant.etang = false;
+            tracer_parcelle(avant);
+            if (etang == true)
+                avant.etang = true; 
+            #endregion
+
+            #region actualisation parcelle d'arrivé 
+            p.afficher = false;
+            p.panda = true;
+            if (p.nbreBambou > 0)
+            {
+                p.nbreBambou--;
+                Color couleurBambou = p.remplissage.Color;
+                // si il mange sur une parcelle jaune 
+                if (couleurBambou == Color.Yellow)
+                {
+                    listeJoueur[jEnCours].nbreBambouJaune++;
+                    estomacJaune.Text = listeJoueur[jEnCours].nbreBambouJaune.ToString();
+                }
+                // si il mange sur une parcelle rose 
+                if (couleurBambou == Color.Pink)
+                {
+                    listeJoueur[jEnCours].nbreBambouRose++;
+                    estomacRose.Text = listeJoueur[jEnCours].nbreBambouRose.ToString();
+                }
+                // si il mange sur une parcelle vert 
+                if (couleurBambou == Color.ForestGreen)
+                {
+                    listeJoueur[jEnCours].nbreBambouVert++;
+                    estomacVert.Text = listeJoueur[jEnCours].nbreBambouVert.ToString();
+                }
+            }
+
+            tracer_parcelle(p);
+            #endregion
+
+
+        }
+
+        #region choixCouleurParcelle
+
+        private void ColorGreen_Click(object sender, EventArgs e)
+        {
+            choixCouleur = Color.ForestGreen;
+            choixCouleurParcelle.Hide();
+        }
+
+        private void ColorPink_Click(object sender, EventArgs e)
+        {
+            choixCouleur = Color.Pink;
+            choixCouleurParcelle.Hide();
+
+        }
+
+        private void ColorYellow_Click(object sender, EventArgs e)
+        {
+            choixCouleur = Color.Yellow;
+            choixCouleurParcelle.Hide();
+        }
+
+        #endregion 
+
         private void zoneJardin_Click(object sender, MouseEventArgs e)
         {
 
@@ -553,42 +595,11 @@ namespace TakenokoVisuel
             #region bouger panda
             if (act == Action.BougerPanda)
             {
-                Parcelle avant = panda.parcelle;
-                panda.mouvement(p.dimension.X, p.dimension.Y);
-                panda.parcelle = p;
-                p.afficher = false;
-                p.panda = true;
-                tracer_parcelle(p);
-                avant.panda = false;
-                avant.afficher = false;
-                tracer_parcelle(avant);
+                deplacementPanda(p); 
                 changementJoueur();
             }
             #endregion 
         }
-
-        #region choixCouleurParcelle
-
-        private void ColorGreen_Click(object sender, EventArgs e)
-        {
-            choixCouleur = Color.ForestGreen;
-            choixCouleurParcelle.Hide();
-        }
-
-        private void ColorPink_Click(object sender, EventArgs e)
-        {
-            choixCouleur = Color.Pink;
-            choixCouleurParcelle.Hide();
-            
-        }
-
-        private void ColorYellow_Click(object sender, EventArgs e)
-        {
-            choixCouleur = Color.Yellow;
-            choixCouleurParcelle.Hide();
-        }
-
-        #endregion 
 
         private void lancement_Click(object sender, EventArgs e)
         {
@@ -612,7 +623,14 @@ namespace TakenokoVisuel
             Obj1.Show();
             #endregion 
 
-            #region panda et jardinier 
+            #region estomac du panda 
+            estomacJaune.Text = "0";
+            estomacRose.Text = "0";
+            estomacVert.Text = "0";
+            estomacPanda.Show();
+            #endregion 
+
+            #region panda et jardinier
             baseDessin.DrawImage(jardinier.image, jardinier.placement);
             baseDessin.DrawImage(panda.image, panda.placement); 
             #endregion 
@@ -631,6 +649,40 @@ namespace TakenokoVisuel
         private void deplacerPanda_Click(object sender, EventArgs e)
         {
             act = Action.BougerPanda; 
+        }
+
+        private void arroser_Click(object sender, EventArgs e)
+        {
+            act = Action.Arroser;
+        }
+
+        private void quitter_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("ATTENTION\nvous quitter définitivement la partie.");
+            System.Environment.Exit(0);
+        }
+
+        private void piocherCarte_Click(object sender, EventArgs e)
+        {
+            if (piocheP.Count() > 0)
+            {
+                if (listeJoueur[jEnCours].main.Count < 5)
+                {
+                    Carte c = listeJoueur[jEnCours].piocher(piocheP);
+                    MessageBox.Show("Vous avez pioché " + c.ToString());
+                    changementJoueur();
+                }
+                else
+                    MessageBox.Show("Vous avez déjà 5 objectifs.\nChoississez une autre action.");
+            }
+            else
+                MessageBox.Show("Il n'y a plus de carte disponible.\nChoississez une autre action.");
+        }
+
+        private void piocherParcelle_Click(object sender, EventArgs e)
+        {
+            act = Action.Parcelle;
+            choixCouleurParcelle.Show();
         }
       
     }

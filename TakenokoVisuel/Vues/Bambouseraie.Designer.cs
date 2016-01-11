@@ -49,9 +49,11 @@
             this.ColorGreen = new System.Windows.Forms.Button();
             this.lancement = new System.Windows.Forms.Button();
             this.estomacPanda = new System.Windows.Forms.GroupBox();
-            this.estomacRose = new System.Windows.Forms.TextBox();
-            this.estomacVert = new System.Windows.Forms.TextBox();
             this.estomacJaune = new System.Windows.Forms.TextBox();
+            this.estomacVert = new System.Windows.Forms.TextBox();
+            this.estomacRose = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nbreobjok = new System.Windows.Forms.Label();
             this.groupBoxAction.SuspendLayout();
             this.groupBoxObjectif.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.zoneJardin)).BeginInit();
@@ -137,6 +139,8 @@
             // 
             // groupBoxObjectif
             // 
+            this.groupBoxObjectif.Controls.Add(this.nbreobjok);
+            this.groupBoxObjectif.Controls.Add(this.label1);
             this.groupBoxObjectif.Controls.Add(this.Obj5);
             this.groupBoxObjectif.Controls.Add(this.Obj4);
             this.groupBoxObjectif.Controls.Add(this.Obj1);
@@ -144,7 +148,7 @@
             this.groupBoxObjectif.Controls.Add(this.Obj2);
             this.groupBoxObjectif.Location = new System.Drawing.Point(12, 321);
             this.groupBoxObjectif.Name = "groupBoxObjectif";
-            this.groupBoxObjectif.Size = new System.Drawing.Size(171, 145);
+            this.groupBoxObjectif.Size = new System.Drawing.Size(171, 184);
             this.groupBoxObjectif.TabIndex = 3;
             this.groupBoxObjectif.TabStop = false;
             this.groupBoxObjectif.Text = "Objectifs";
@@ -173,9 +177,9 @@
             this.Obj1.AutoSize = true;
             this.Obj1.Location = new System.Drawing.Point(6, 27);
             this.Obj1.Name = "Obj1";
-            this.Obj1.Size = new System.Drawing.Size(49, 13);
+            this.Obj1.Size = new System.Drawing.Size(52, 13);
             this.Obj1.TabIndex = 2;
-            this.Obj1.Text = "Objectif1";
+            this.Obj1.Text = "Objectif 1";
             // 
             // Obj3
             // 
@@ -277,43 +281,61 @@
             this.estomacPanda.Controls.Add(this.estomacJaune);
             this.estomacPanda.Controls.Add(this.estomacVert);
             this.estomacPanda.Controls.Add(this.estomacRose);
-            this.estomacPanda.Location = new System.Drawing.Point(12, 473);
+            this.estomacPanda.Location = new System.Drawing.Point(12, 511);
             this.estomacPanda.Name = "estomacPanda";
-            this.estomacPanda.Size = new System.Drawing.Size(171, 78);
+            this.estomacPanda.Size = new System.Drawing.Size(171, 50);
             this.estomacPanda.TabIndex = 8;
             this.estomacPanda.TabStop = false;
             this.estomacPanda.Text = "Estomac du Panda";
             this.estomacPanda.Visible = false;
             // 
-            // estomacRose
+            // estomacJaune
             // 
-            this.estomacRose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.estomacRose.Location = new System.Drawing.Point(24, 29);
-            this.estomacRose.Name = "estomacRose";
-            this.estomacRose.ReadOnly = true;
-            this.estomacRose.Size = new System.Drawing.Size(35, 20);
-            this.estomacRose.TabIndex = 0;
-            this.estomacRose.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.estomacJaune.BackColor = System.Drawing.Color.Yellow;
+            this.estomacJaune.Location = new System.Drawing.Point(106, 19);
+            this.estomacJaune.Name = "estomacJaune";
+            this.estomacJaune.ReadOnly = true;
+            this.estomacJaune.Size = new System.Drawing.Size(35, 20);
+            this.estomacJaune.TabIndex = 2;
+            this.estomacJaune.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // estomacVert
             // 
             this.estomacVert.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.estomacVert.Location = new System.Drawing.Point(65, 29);
+            this.estomacVert.Location = new System.Drawing.Point(65, 19);
             this.estomacVert.Name = "estomacVert";
             this.estomacVert.ReadOnly = true;
             this.estomacVert.Size = new System.Drawing.Size(35, 20);
             this.estomacVert.TabIndex = 1;
             this.estomacVert.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
-            // estomacJaune
+            // estomacRose
             // 
-            this.estomacJaune.BackColor = System.Drawing.Color.Yellow;
-            this.estomacJaune.Location = new System.Drawing.Point(106, 29);
-            this.estomacJaune.Name = "estomacJaune";
-            this.estomacJaune.ReadOnly = true;
-            this.estomacJaune.Size = new System.Drawing.Size(35, 20);
-            this.estomacJaune.TabIndex = 2;
-            this.estomacJaune.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.estomacRose.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.estomacRose.Location = new System.Drawing.Point(24, 19);
+            this.estomacRose.Name = "estomacRose";
+            this.estomacRose.ReadOnly = true;
+            this.estomacRose.Size = new System.Drawing.Size(35, 20);
+            this.estomacRose.TabIndex = 0;
+            this.estomacRose.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(6, 147);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(72, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Nbre Obj Ok :";
+            // 
+            // nbreobjok
+            // 
+            this.nbreobjok.AutoSize = true;
+            this.nbreobjok.Location = new System.Drawing.Point(84, 147);
+            this.nbreobjok.Name = "nbreobjok";
+            this.nbreobjok.Size = new System.Drawing.Size(13, 13);
+            this.nbreobjok.TabIndex = 6;
+            this.nbreobjok.Text = "0";
             // 
             // Bambouseraie
             // 
@@ -366,5 +388,7 @@
         private System.Windows.Forms.TextBox estomacRose;
         private System.Windows.Forms.TextBox estomacVert;
         private System.Windows.Forms.TextBox estomacJaune;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label nbreobjok;
     }
 }

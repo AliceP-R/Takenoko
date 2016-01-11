@@ -137,16 +137,69 @@ namespace TakenokoVisuel
 
         }
 
+        #region valider Obj
+        private void validationObj()
+        {
+            List<Carte> nouvelleMain = new List<Carte>(); 
+            for (int i = 0; i < listeJoueur[jEnCours].main.Count; i++)
+            {
+                Carte etude = listeJoueur[jEnCours].main[i]; 
+                if (etude.type == Type.Planter)
+                {
+                    if (validerObjPlanter(etude))
+                    {
+                        MessageBox.Show("Votre objectif " + etude.ToString() + " est validé !");
+                        etude.realise = true; 
+                    }
+                    else
+                        nouvelleMain.Add(etude); 
+                }
+            }
+            listeJoueur[jEnCours].main = nouvelleMain; 
+        }
+
+        private bool validerObjPlanter(Carte obj)
+        {
+            int nbreBambouVert = 0; 
+            int nbreBambouJaune = 0;
+            int nbreBambouRose = 0;
+            bool res = false; 
+
+            foreach (Parcelle p in tableauParcelle)
+            {
+                if (p.afficher == true && !p.etang)
+                {
+                    if (p.remplissage.Color == Color.Yellow)
+                        nbreBambouJaune += p.nbreBambou;
+                    if (p.remplissage.Color == Color.Pink)
+                        nbreBambouRose += p.nbreBambou;
+                    if (p.remplissage.Color == Color.ForestGreen)
+                        nbreBambouVert += p.nbreBambou; 
+                }
+            }
+
+            if (obj.couleur == Couleur.Jaune && obj.nbreBambou == nbreBambouJaune)
+                res = true;
+            if (obj.couleur == Couleur.Vert && obj.nbreBambou == nbreBambouVert)
+                res = true;
+            if (obj.couleur == Couleur.Rose && obj.nbreBambou == nbreBambouRose)
+                res = true;
+
+            return res; 
+        }
+        #endregion 
 
         #region Gestion Joueur
         // Affiche le nom du joueur qui doit faire effectuer son tour ainsi que ses objectifs 
         public void Tour()
         {
+            validationObj(); 
             Obj2.Hide();
             Obj3.Hide();
             Obj1.Hide();
             Obj4.Hide();
             Obj5.Hide();
+            nbreobjok.Text = listeJoueur[jEnCours].nbreObjOk.ToString(); 
 
             act = Action.Indefinie; 
             MessageBox.Show("C'est à " + listeJoueur[jEnCours].nom + " de jouer.");
@@ -191,7 +244,9 @@ namespace TakenokoVisuel
             Tour();
         }
         #endregion
-        
+
+        #region parcelle 
+
         private void tracer_parcelle(Parcelle p)
         {
             if (p.afficher == false && (p.etang != true || act == Action.BougerJardinier || act == Action.BougerPanda))
@@ -351,6 +406,10 @@ namespace TakenokoVisuel
             return null;
         }
 
+        #endregion 
+
+        #region acteurs
+
         private void deplacementJardinier(Parcelle p)
         {
             Parcelle avant = jardinier.parcelle;
@@ -491,6 +550,7 @@ namespace TakenokoVisuel
 
 
         }
+        #endregion 
 
         #region choixCouleurParcelle
 
@@ -514,6 +574,8 @@ namespace TakenokoVisuel
         }
 
         #endregion 
+
+        #region gestion click 
 
         private void zoneJardin_Click(object sender, MouseEventArgs e)
         {
@@ -684,6 +746,8 @@ namespace TakenokoVisuel
             act = Action.Parcelle;
             choixCouleurParcelle.Show();
         }
-      
+
+        #endregion 
+
     }
 }

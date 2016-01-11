@@ -21,6 +21,7 @@ namespace TakenokoVisuel
                 mainP = value; 
             }
         }
+        public int nbreObjOk; 
 
         public int nbreBambouRose;
         public int nbreBambouVert;
@@ -29,7 +30,9 @@ namespace TakenokoVisuel
         public string nom; 
         public Joueur(string n)
         {
-            nom = n; 
+            nom = n;
+            nbreBambouVert = nbreBambouRose = nbreBambouJaune = 0;
+            nbreObjOk = 0; 
         }
 
         public Carte piocher(List<Carte> pioche)

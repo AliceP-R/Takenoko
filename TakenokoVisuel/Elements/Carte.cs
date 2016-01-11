@@ -12,7 +12,7 @@ namespace TakenokoVisuel
     {
         Indefini, 
         Poser, 
-        Jardiner, 
+        Planter, 
         Manger
     }
 
@@ -58,7 +58,8 @@ namespace TakenokoVisuel
             set { realiseP = value;}
         }
 
-        Couleur couleur;
+        public int nbreBambou; 
+        public Couleur couleur;
 
         private void randCouleur()
         {
@@ -83,12 +84,13 @@ namespace TakenokoVisuel
         {
             int ms = DateTime.Now.Millisecond;
             Random rand = new Random(ms);
-            int nbre = rand.Next(1, 5); 
+            int nbre = rand.Next(1, 5);
+            nbreBambou = nbre; 
             this.randCouleur(); 
             switch (t)
             {
                 case 1:
-                    typePrive = Type.Jardiner;
+                    typePrive = Type.Planter;
                     objectifPrive = "Planter " + nbre + " x " + nbre + " bambous "+couleur; 
                     break; 
                 case 2:
